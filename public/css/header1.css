@@ -1,0 +1,683 @@
+.header1_bg {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: bottom 20% center;
+  position: relative;
+}
+.header1_bg .banner_bg:before {
+  content: unset;
+}
+.header1_bg video {
+  width: 50%;
+  opacity: 0.3;
+  height: 100%;
+}
+.header1_bg .content_bg {
+  text-align: center;
+  position: relative;
+}
+.content_bg .content_text {
+  position: relative;
+  font-weight: 400;
+}
+.content_bg .content_text h1 {
+  position: relative;
+  display: inline-block;
+}
+.content_bg .content_text h1 span {
+  transform-origin: 50% 100%;
+  display: inline-block;
+  line-height: 1em;
+  font-family: "Barlow Semi Condensed", sans-serif;
+  font-size: 48px;
+  font-weight: 700;
+  text-align: center;
+  text-transform: uppercase;
+  color: #ffffff;
+  margin: 0px;
+  --x-offset: 3px;
+  --y-offset: 1px;
+  --stroke: 1px;
+  --background-color: #8c4e39;
+  --stroke-color: #f9dedd;
+  text-shadow: var(--x-offset) var(--y-offset) 0px var(--background-color),
+    calc(var(--x-offset) - var(--stroke)) calc(var(--y-offset) + var(--stroke))
+      0px var(--stroke-color);
+  display: inline-block;
+  animation: flip 5s infinite;
+  animation-delay: calc(0.2s * var(--i));
+  letter-spacing: -12px;
+}
+@keyframes flip {
+  0%,
+  80% {
+    transform: rotateY(360deg);
+  }
+}
+.content_bg .content_subtext {
+  text-align: right;
+  margin: 20px 0px 0px;
+}
+.content_bg .content_subtext .img1 {
+  float: right;
+  width: 50px;
+  margin: 0px 0px 0px 0px;
+}
+.content_bg .content_subtext h3 {
+}
+.content_bg .content_subtext h4 {
+}
+.content_bg .content_subtext h4 a {
+}
+
+/*****====ADMIN PART START====******/
+.admin_bg {
+  padding: 40px 0px;
+}
+.admin_bg {
+}
+
+/*****====ADMIN PART END====******/
+
+/*****====FAQ PART END====******/
+.admin_bg .head_text {
+  margin: 55px 0px 0px;
+  max-width: 400px;
+}
+.admin_bg .head_text h2 {
+  font-family: "Barlow Semi Condensed", sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #0e0e0e;
+  padding: 0px 0px;
+  margin: 0px 0px 0px 0px;
+}
+.admin_bg .head_text p {
+  font-size: 14px;
+  font-weight: 500;
+  color: #585858;
+  padding: 0px;
+  width: 100%;
+  margin: 9px auto 0px;
+  text-align: justify;
+  line-height: 24px;
+}
+.admin_bg .text_but {
+  text-align: start;
+  margin: 0px;
+  padding: 25px 0px 0px;
+}
+.admin_bg .head_text but i {
+}
+.admin_bg .head_text but i {
+}
+.admin_bg .head_img {
+  text-align: center;
+  margin: 0px 0px 30px 0px;
+}
+.admin_bg .head_img .img1 {
+  margin: -78px 0px 0px 0px;
+  max-width: 307px;
+}
+.faq_bg {
+}
+.faq_bg .nav {
+  display: block;
+  margin: 35px 0px 28px 0px;
+  text-align: center;
+}
+.faq_bg .nav-link {
+  background: url(../images/but2.png);
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 8px 30px 30px;
+  color: #2c5168;
+  font-weight: 500;
+  position: relative;
+  text-transform: capitalize;
+  font-size: 15px;
+  display: inline-block;
+  margin: 0px 15px;
+  max-width: 170px;
+  width: 100%;
+}
+.faq_bg .nav-link.active {
+  background: url(../images/but3.png);
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: #2c5168;
+}
+.faq_bg .nav-link.active:after {
+  content: "";
+  position: absolute;
+  width: 27%;
+  height: 0px;
+  left: 0px;
+  bottom: -6px;
+  right: 0;
+  margin: auto;
+  border-left: 24px solid transparent;
+  border-right: 24px solid transparent;
+  border-top: 20px solid #fbb222;
+}
+.faq_bg .nav-link i {
+  font-size: 18px;
+  color: #2c5168;
+  position: relative;
+  top: 4px;
+  left: -5px;
+}
+.faq_bg .nav-link:hover {
+}
+.faq_bg .tab-content {
+}
+.faq_bg .tab-content {
+}
+.faq_bg .accordion-item {
+  background-color: #fff;
+  border: none;
+  margin: 15px 0px;
+  background-color: transparent;
+  filter: drop-shadow(1px 1px 2px #2c5168);
+}
+.faq_bg .accordion-button {
+  background: url(../images/foot_bg.png);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: 300;
+  color: #fff;
+  text-align: start;
+  box-shadow: unset !important;
+}
+.faq_bg .accordion-button::after {
+  background-size: 22px;
+  background-position: center;
+  background-color: #f8ac00;
+  position: absolute;
+  right: 0px;
+  width: 50px;
+  height: 100%;
+  top: 0;
+  text-align: center;
+}
+.faq_bg .accordion-body {
+  padding: 1rem 1.25rem;
+  width: 86%;
+  margin: 10px auto 0px;
+  font-size: 14px;
+  font-weight: 400;
+  color: #000000;
+  background: #f9f3fd;
+  background-attachment: fixed;
+}
+/*****====FAQ PART END====******/
+
+/*****====BOUNTY PART START====******/
+.bountyhead_bg {
+  padding: 35px 0px;
+  background: linear-gradient(45deg, #f9f3fd, transparent);
+  text-align: center;
+}
+.bountyhead_bg .head {
+  text-align: center;
+}
+.bountyhead_bg .head h2 {
+  text-align: center;
+}
+.bountyhead_bg .head h3 {
+  text-align: center;
+}
+.bountyhead_bg .head h3 span {
+  color: #2c5168;
+}
+.bountyhead_bg .head h4 {
+  font-size: 18px;
+  font-weight: 600;
+  padding: 0px;
+  margin: 10px 0px 0px;
+}
+.bounty_bg {
+  background: #f9f3fd;
+  padding: 10px 0px;
+}
+.bounty_bg .head1 {
+  background: #fff;
+  padding: 10px 15px;
+}
+.bounty_bg .head1 h2 {
+  font-size: 16px;
+  font-weight: 500;
+  padding: 0px;
+  margin: 0px;
+}
+.bounty_bg .head1 h2 span {
+  float: right;
+  font-size: 16px;
+  font-weight: 600;
+  color: #2c5168;
+  padding: 0px;
+}
+.bounty_bg p {
+  margin: 10px 0px;
+}
+.bounty_bg .head {
+  margin: 20px 0px 20px;
+  border-top: 1px solid #00000030;
+  border-bottom: 1px solid #00000030;
+  padding: 5px 0px;
+}
+.bounty_bg .head h6 {
+  font-size: 15px;
+  font-weight: 400;
+  color: #000;
+  padding: 0px;
+  margin: 0px 0px 12px;
+}
+.bounty_bg .head h6 i {
+  font-size: 18px;
+  position: relative;
+  top: 4px;
+}
+.bounty_bg .bounty_img {
+  text-align: center;
+}
+.bounty_bg .bounty_img .img1 {
+  max-width: 350px;
+  margin: 10px auto;
+}
+.bounty_bg .head2 {
+  padding: 20px 0px 20px;
+  background: #fff;
+  margin: 0px 0px 20px;
+  text-align: center;
+}
+.bounty_bg .head2 h6 {
+  font-size: 26px;
+  font-weight: 600;
+  margin: 0px;
+}
+.bounty_bg .bounty_img {
+  text-align: center;
+}
+.bounty_bg .bounty_img .img1 {
+  max-width: 190px;
+  background: linear-gradient(45deg, white, transparent);
+  padding: 15px;
+}
+/*****====BOUNTY PART END====******/
+
+/*****====LOGIN PART START====******/
+
+.login_bg {
+  position: relative;
+}
+.login_bg .head_img .img1 {
+  margin: 10px 0px 10px 0px;
+  max-width: 320px;
+}
+.login_bg .error {
+  width: 65%;
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  top: 0px;
+}
+.head2 {
+  margin: 0px 0px 20px;
+}
+.head2 h2 {
+  font-family: "Barlow Semi Condensed", sans-serif;
+  font-size: 29px;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-align: start;
+  color: #0e0e0e;
+  border-bottom: 2px solid #2c5168;
+  width: fit-content;
+}
+.head2 h2 span {
+  color: #2c5168;
+}
+.login_bg .form1 {
+  background: linear-gradient(179deg, #f67424 -13%, #2c5168 91%);
+  max-width: 400px;
+  margin: -30px auto 0px;
+  padding: 20px;
+}
+.form1 {
+  background: linear-gradient(179deg, #f67424 -13%, #2c5168 91%);
+  max-width: 400px;
+  margin: 20px auto 10px;
+  padding: 20px;
+}
+.form1 .form_text {
+  text-align: center;
+  padding: 0px 0px 15px 0px;
+}
+.form1 .form_text .form_img {
+  max-width: 115px;
+  margin: -75px 0px 10px 0px;
+}
+.form1 .form_text h2 {
+  font-family: "Marck Script", cursive;
+  color: #fff;
+  font-size: 26px;
+  padding: 0px;
+  margin: 0px;
+}
+.form1 .form_text h2 span {
+  color: #fdb713;
+}
+.form1 form {
+}
+.form1 .form_box {
+  position: relative;
+  padding: 12px 10px;
+}
+.form1 .form_box h3 {
+  font-family: "Barlow Semi Condensed", sans-serif;
+  font-size: 13px;
+  color: #fff;
+  padding: 0px 0px 8px;
+  margin: 0px;
+}
+.form1 .form_box h4 {
+  position: relative;
+  margin: 0px;
+}
+.form1 .form_box i {
+  position: absolute;
+  color: #ffcc00;
+  font-size: 16px;
+  top: 12px;
+  right: 20px;
+}
+.form1 .inpts {
+  width: 100%;
+  background: url(../images/input_bg.png);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  font-weight: 500;
+  color: #2c5168;
+  padding: 12px 40px 12px 10px;
+  transition-duration: 1s;
+}
+.form1 .inpts:focus {
+  transition-duration: 1s;
+  background-size: 123% 100%;
+}
+.form1 .inpts:focus ~ i {
+  transition-duration: 1s;
+  color: #2c5168;
+}
+.form_but {
+  padding: 20px 0px 10px;
+  text-align: center;
+}
+.login_bg .form_but .sbmt {
+  background: url(../images/but4.png);
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 6px 30px 21px;
+  color: #2c5168;
+  font-weight: 500;
+  position: relative;
+  text-transform: capitalize;
+  font-size: 15px;
+  border: none;
+  outline: none;
+  transition-duration: 1s;
+}
+.login_bg .form_but .sbmt:hover {
+  transform: translateY(-10px);
+  transition-duration: 1s;
+  filter: drop-shadow(2px 4px 6px black);
+}
+.form_but .sbmt:hover {
+  transform: translateY(-10px);
+  transition-duration: 1s;
+  filter: drop-shadow(2px 4px 6px black);
+}
+.form_but .sbmt {
+  background: url(../images/but3.png);
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 6px 30px 21px;
+  color: #2c5168;
+  font-weight: 500;
+  position: relative;
+  text-transform: capitalize;
+  font-size: 15px;
+  border: none;
+  outline: none;
+  transition-duration: 1s;
+}
+.rem_text {
+  margin: 20px 0px 0px;
+  text-align: center;
+}
+.rem_text h3 {
+  font-size: 20px;
+  font-weight: 400;
+  color: #0e0e0e;
+  padding: 0px;
+  margin: 0px;
+}
+.rem_text .text_but {
+  text-align: start;
+  margin: 0px;
+  padding: 20px 0px 0px;
+}
+.rem_text .text_but .but {
+  margin: 0px 15px;
+}
+.rem_text p {
+  color: #0e0e0e;
+  margin: 0px;
+}
+.rem_text p a {
+  color: #2c5168;
+}
+
+/*****====LOGIN PART END====******/
+
+/*****====SIGNUP PART START====******/
+.signup_bg .form1 {
+  max-width: 550px;
+}
+.signup_bg .form1 .form_box {
+  padding: 12px 4px;
+}
+.signup_bg .form1 .form_box i {
+  right: 13px;
+}
+.signup_bg .nav {
+}
+.signup_bg .nav-link {
+}
+.signup_bg .nav-link.active {
+}
+.signup_bg .tab-content {
+}
+/*****====SIGNUP PART END====******/
+
+/******=====CONFIRM CSS START=====*****/
+
+.confirm_bg {
+  text-align: center;
+}
+.confirm_bg h4 {
+  padding: 15px 0px;
+  font-size: 22px;
+  font-weight: 600;
+  color: #000000;
+  transition: all 0.4s ease;
+}
+.confirm_bg h5 {
+  padding: 0px 0px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #000;
+  transition: all 0.4s ease;
+}
+.confirm_bg h5 span {
+  color: #ffffff;
+  filter: drop-shadow(0px 1px 3px black);
+}
+.confirm_bg p {
+  padding: 0px 0px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #000;
+}
+.confirm_bg .form_but {
+  text-align: center;
+}
+.confirm_bg .form_but .but {
+  font-size: 14px;
+  font-weight: 500;
+  color: #fff;
+  padding: 8px 18px 8px 18px;
+  margin: 0px 10px 0px;
+  background: #73ba3f;
+  border: none;
+  outline: none;
+  border-radius: 7px;
+  box-shadow: inset 0 0 0 0 #fff;
+  transition: 0.7s;
+  position: relative;
+}
+.confirm_bg .form_but .but:hover {
+  box-shadow: inset 350px 0 0 0 #73ba3f;
+  transition: 0.7s;
+  color: #171717;
+  background: #fff;
+}
+
+/******=====CONFIRM CSS ENB=====*****/
+
+/******=====RESPONSIVE CSS START=====*****/
+
+@media only screen and (max-width: 1199px) {
+}
+@media only screen and (max-width: 991px) {
+  .header_bg .navbar {
+    text-align: center;
+  }
+  /*****Admin_bg*****/
+  .admin_bg .head_img {
+    display: none;
+  }
+  .admin_bg .head_text {
+    margin: 0px 0px 0px;
+    max-width: unset;
+    text-align: center;
+  }
+  .admin_bg .head_text p {
+    text-align: center;
+  }
+  /*****Faq_bg*****/
+  .faq_bg .nav {
+    margin: 15px 0px 30px 0px;
+    text-align: center;
+  }
+  .faq_bg .nav-link {
+    margin: 0px 0px;
+  }
+  /*****Head*****/
+  .head2 h2 {
+    margin: auto;
+  }
+  /*****login_bg*****/
+  .login_bg .form1 {
+    margin: 100px auto 0px;
+  }
+  .bounty_bg .bounty_img {
+    display: none;
+  }
+  .bounty_bg .text_but {
+    text-align: center;
+    padding: 30px 0px 20px;
+  }
+}
+@media only screen and (max-width: 767px) {
+  /*****Content_bg*****/
+  .content_bg .content_text h1 span {
+    font-size: 36px;
+  }
+  /*****Faq_bg*****/
+  .faq_bg .nav-link {
+    margin: 12px 10px;
+    max-width: 200px;
+  }
+  /*****login_bg*****/
+  .rem_text .text_but .but {
+    margin: 0px 0px;
+  }
+  .bounty_bg .head h6 {
+    display: inline-flex;
+  }
+  .bounty_bg .head h6 i {
+    top: -1px;
+    margin: 0px 5px 0px 0px;
+  }
+  .login_bg .error {
+    width: 90%;
+  }
+  .content_bg .content_text h1 span {
+    letter-spacing: -5px;
+  }
+}
+@media only screen and (max-width: 576px) {
+  /*****header1_bg*****/
+  .faq_bg .nav-link {
+    margin: 12px 0px;
+    max-width: 116px;
+  }
+  .faq_bg .nav-link i {
+    display: none;
+  }
+  /*****login_bg*****/
+  .login_bg .form1 {
+    padding: 20px 10px;
+  }
+  .form1 .form_box {
+    padding: 12px 0px;
+  }
+  .form1 .form_box i {
+    right: 11px;
+  }
+
+  .bounty_bg .head1 h2 {
+    text-align: center;
+  }
+  .bounty_bg .head1 h2 span {
+    float: unset;
+    display: block;
+    padding: 10px 0px 0px;
+  }
+
+  .bounty_bg .head h3 {
+    font-size: 20px;
+  }
+
+  .content_bg .content_text h1 span {
+    letter-spacing: -5px;
+  }
+  .content_bg .content_text h1 .text {
+    display: block;
+  }
+}
+
+/******=====RESPONSIVE CSS END=====*****/

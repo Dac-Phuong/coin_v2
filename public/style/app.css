@@ -1,0 +1,148 @@
+.swal2-container {
+  z-index: 1100 !important;
+}
+
+button.swal2-cancel {
+  margin-left: 10px;
+}
+
+.toast-success {
+  background: #7367f0 !important;
+}
+
+.toast-error {
+  background: #ea5455 !important;
+}
+
+#toast-container > .toast {
+  background-image: none !important;
+}
+
+button.role-edit-modal {
+  outline: none;
+  border: none;
+  background: #fff;
+  color: #6161d3;
+  padding: 0px;
+}
+
+button.role-edit-modal:hover {
+  color: blue;
+}
+
+.flex.justify-between.sm\:hidden {
+  display: none;
+}
+
+span.relative svg {
+  height: 20px;
+}
+.flex.items-center .sm\:flex {
+  display: block !important;
+}
+.ck.ck-content.ck-editor__editable.ck-rounded-corners.ck-editor__editable_inline {
+  height: 300px;
+}
+.table-responsive .deposit_confirm {
+  width: 100%;
+  margin: 10px auto;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+}
+.table-responsive .deposit_confirm th {
+  padding: 10px;
+  font-size: 17px;
+  font-weight: 500;
+  color: #7f7b8b;
+  margin: 0px;
+  border-bottom: 1px dashed #ccc;
+}
+.table-responsive .deposit_confirm td {
+  font-size: 14px;
+  font-weight: 400;
+  color: #7f7b8b;
+  padding: 10px;
+  border-bottom: 1px dashed #ccc;
+}
+.custom-file-input {
+  position: relative;
+  font-size: 16px;
+  margin: auto;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.custom-file-input input {
+  display: none;
+}
+
+.custom-file-input label {
+  background-color: #f1f1f2;
+  color: #7367f0;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 50px;
+}
+
+.custom-file-input label::after {
+  content: "" !important;
+}
+
+.custom-file-input label:hover {
+  background-color: #dfdfe3;
+}
+
+.custom-file-input input:focus + label {
+  outline: 1px dotted #000;
+  outline: -webkit-focus-ring-color auto 5px;
+}
+
+.custom-file-input input:valid + label {
+  background-color: #2ecc71;
+}
+
+.custom-file-input label::after {
+  content: "No file chosen";
+  margin-left: 10px;
+}
+
+.custom-file-input input:valid + label::after {
+  content: "File selected: " attr(name);
+}
+
+.btn-delete-image {
+  position: absolute;
+  top: 0;
+  cursor: pointer;
+  color: red;
+}
+.modal-body {
+  overflow: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #7d72ec lightgray;
+}
+@media only screen and (max-width: 600px) {
+  .input-group-merge.wrap-input,
+  .wrap-form-date,
+  .wrap-to-date {
+    width: 100% !important;
+    margin-bottom: 10px;
+  }
+  .wrap-form-date input,
+  .wrap-to-date input {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .wrap-to-date p {
+    padding: 0 !important;
+    margin-right: 20px !important;
+    width: 100px !important;
+  }
+  .modal-dialog.modal-dialog-centered {
+    min-width: 0 !important;
+  }
+}
