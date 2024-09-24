@@ -98,6 +98,7 @@ return array(
     'App\\Livewire\\Web\\Referal\\Referal' => $baseDir . '/app/Livewire/Web/Referal/Referal.php',
     'App\\Livewire\\Web\\Withdraw\\ListWithdraw' => $baseDir . '/app/Livewire/Web/Withdraw/ListWithdraw.php',
     'App\\Livewire\\Web\\Withdraw\\ModalWithdraw' => $baseDir . '/app/Livewire/Web/Withdraw/ModalWithdraw.php',
+    'App\\Mail\\Sendmail' => $baseDir . '/app/Mail/Sendmail.php',
     'App\\Mail\\authMail' => $baseDir . '/app/Mail/authMail.php',
     'App\\Mail\\recover' => $baseDir . '/app/Mail/recover.php',
     'App\\Models\\Coin_model' => $baseDir . '/app/Models/Coin_model.php',

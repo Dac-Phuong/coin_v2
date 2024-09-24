@@ -24,13 +24,12 @@ class Wallets extends Model
     {
         return $this->belongsTo(Investors::class);
     }
-    public function planModel()
+    public function plan()
     {
         return $this->belongsTo(PlanModel::class);
     }
     public function network()
     {
-        return $this->belongsTo(Network::class);
+        return $this->belongsTo(Network::class, 'network_id', 'id');
     }
-
 }

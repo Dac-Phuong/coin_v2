@@ -2,117 +2,50 @@
 @section('main')
     <div class="container-xxl flex-grow-1 container-p-y p-0">
         <div>
-            <!-- Responsive Datatable -->
             <h4 class="py-3 mb-2">
-                <span class="text-muted fw-light">{{ __('Network Manage') }} /</span> {{ __('Network List') }}
+                <span class="text-muted fw-light">{{ __('Investor Manager') }} /</span> {{ __('Investor List') }} /</span>
+                {{ __('Deposit History') }}
             </h4>
             <div class="card">
                 <div class="d-flex justify-content-between align-items-center">
-                    <h5 class="card-header">{{ __('Network List') }}</h5>
-                    <div>
-                        @can('create-wallets')
-                            <button class="dt-button add-new btn btn-primary ms-2 waves-effect waves-light"
-                                style="margin-right:24px" type="button" data-bs-toggle="modal" data-bs-target="#kt_modal_add_wallet">
-                                <span>
-                                    <i class="ti ti-plus ti-xs me-0 me-sm-2"></i>
-                                    <span class="d-none d-sm-inline-block">{{ __('Add New Wallet') }}</span>
-                                </span>
-                            </button>
-                        @endcan
-                        @can('create-network')
-                            <button class="dt-button add-new btn btn-primary ms-2 waves-effect waves-light"
-                                style="margin-right:24px" type="button" data-bs-toggle="modal" data-bs-target="#kt_modal_add_network">
-                                <span>
-                                    <i class="ti ti-plus ti-xs me-0 me-sm-2"></i>
-                                    <span class="d-none d-sm-inline-block">{{ __('Add New Network') }}</span>
-                                </span>
-                            </button>
-                        @endcan
-                    </div>
+                    <h5 class="card-header">{{ __('Investor List') }}</h5>
+                    <a href="{{ url('admin/list-investor') }}"
+                        class="dt-button add-new btn btn-primary ms-2 waves-effect waves-light" style="margin-right:24px">
+                        <span>
+                            <i class="ti ti-arrow-left"></i>
+                            <span class="d-none d-sm-inline-block">{{ __('Go back') }}</span>
+                        </span>
+                    </a>
                 </div>
                 <div class="card-datatable table-responsive pt-0">
-                    <table class="table dataTable" id="networkDatatable">
+                    <table class="table dataTable" id="depositDatatable">
                         <thead>
                             <tr>
-                                <th>{{ __('Network Name') }}</th>
-                                <th>{{ __('Network Image') }}</th>
-                                <th>{{ __('Network Fee') }} ($)</th>
-                                <th>{{ __('Status') }}</th>
-                                <th>{{ __('Created Date') }}</th>
-                                <th style="width:80px">{{ __('Action') }}</th>
+                                <th scope="col">{{ __('Name plan') }}</th>
+                                <th scope="col">{{ __('Number of days') }}</th>
+                                <th scope="col">{{ __('Profit') }}</th>
+                                <th scope="col">{{ __('Deposits Amount') }}</th>
+                                <th scope="col">{{ __('Amount Received') }}</th>
+                                <th scope="col">{{ __('Send date') }}</th>
+                                <th scope="col">{{ __('Status') }}</th>
                             </tr>
                         </thead>
-                    </table>    
+                    </table>
                 </div>
             </div>
-            @include('admin.network.modal.add-network')
-            @include('admin.network.modal.update-network')
-            @include('admin.network.modal.add-wallet')
         </div>
     </div>
 @endsection
-@push('scripts')
+{{-- @push('scripts')
 <script src="{{ asset('assets/vendor/libs/sweetalert2/sweetalert2.js') }}"></script>
 <script src="{{ asset('libs/lightbox/js/lightbox.js') }}"></script>
 <script>
     $(document).on("DOMContentLoaded", function() {
-        var dt_basic_table = $('#networkDatatable');
+        var dt_basic_table = $('#investorDatatable');
+        var investor_id = {{ $id }};
         var dt_basic = null;
         if (dt_basic_table.length) {
             const initAction = () => {
-                // Variable declaration
-                let roles = [];
-                // Show update
-                $(document).on('click', '.btn-edit', function() {
-                    const data = getRowData($(this).closest('tr'));
-                    $('#kt_modal_update_network input[name="id"]').val(data.id);
-                    $('#kt_modal_update_network input[name="network_name"]').val(data.network_name);
-                    $('#kt_modal_update_network input[name="network_price"]').val(data.network_price);
-                    $('#kt_modal_update_network input[name="description"]').val(data.description);
-                    $('#kt_modal_update_network select[name="status"]').val(data.status)
-                    $('#kt_modal_update').modal('show');
-                })
-                //  delete
-                $(document).on('click', '.btn-delete', function() {
-                    const data = getRowData($(this).closest('tr'));
-                    Swal.fire({
-                        title: 'Do you want to delete?',
-                        text: "You will not be able to undo this!",
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'Delete now!',
-                        customClass: {
-                            confirmButton: 'btn btn-primary me-1',
-                            cancelButton: 'btn btn-label-secondary'
-                        },
-                        buttonsStyling: false
-                    }).then(function(result) {
-                        if (result.value) {
-                            $.ajax({
-                                url: '{{ route('network.delete') }}',
-                                type: 'POST',
-                                data: {
-                                    id: data.id,
-                                    _token: '{{ csrf_token() }}'
-                                },
-                                success: function(response) {
-                                    dt_basic.ajax.reload();
-                                    Swal.fire({
-                                        icon: 'success',
-                                        title: 'Delete successful',
-                                        customClass: {
-                                            confirmButton: 'btn btn-success'
-                                        }
-                                    });
-                                }
-                            });
-
-                        }
-                    });
-                })
-
                 function formatNumber(num) {
                     return new Intl.NumberFormat('en-US', {
                         style: 'currency',
@@ -151,10 +84,11 @@
                     displayLength: 10,
                     lengthMenu: [10, 25, 50, 75, 100],
                     ajax: {
-                        url: '{{ route('network.list') }}',
+                        url: '{{ route('history.deposit') }}',
                         type: "POST",
                         data: function(data) {
                             data._token = "{{ csrf_token() }}";
+                            data.investor_id = investor_id;
                         },
                         "dataSrc": function(res) {
                             roles = res.role
@@ -162,13 +96,13 @@
                         }
                     },
                     columns: [{
-                            data: 'network_name'
+                            data: 'username'
                         },
                         {
-                            data: 'network_image'
+                            data: 'email'
                         },
                         {
-                            data: 'network_price'
+                            data: 'balance'
                         },
                         {
                             data: 'status'
@@ -185,12 +119,6 @@
                             render: function(data, type, row) {
                                 return `<a href="#" class="text-primary text-hover-primary btn-show-detail">  ${data ?? ""}  </a>`;
 
-                            }
-                        },
-                        {
-                            targets: 1,
-                            render: function(data, type, row) {
-                                return `<img src="${data}" style="height:50px" alt="Network Image">`; 
                             }
                         },
                         {
@@ -226,7 +154,8 @@
                                            <i class="ti ti-dots-vertical"></i>
                                        </button>
                                        <div class="dropdown-menu">
-                                           ${roles.can_view ? `<a class="dropdown-item" href="/admin/list-wallets/${row.id}"><i class="ti ti-eye"></i> View wallet</a>` : ''}
+                                           ${roles.can_deposit ? `<a class="dropdown-item" href="/admin/investor/history/deposit/${row.id}"><i class="ti ti-history"></i> History Deposit</a>` : ''}
+                                           ${roles.can_withdraw ? `<a class="dropdown-item" href="/admin/investor/history/withdraw/${row.id}"><i class="ti ti-history"></i> History Withdraw</a>` : ''}
                                            ${roles.can_update ? `<a class="dropdown-item btn-edit" href="javascript:void(0);"><i class="ti ti-pencil me-2"></i> Update</a>` : ''}
                                            ${roles.can_delete ? `<a class="dropdown-item btn-delete" href="javascript:void(0);"><i class="ti ti-trash me-2"></i> Delete</a>` : ''}
                                        </div>
@@ -238,8 +167,7 @@
                 });
             }
             initAction();
-
         }
     })
 </script>
-@endpush
+@endpush --}}

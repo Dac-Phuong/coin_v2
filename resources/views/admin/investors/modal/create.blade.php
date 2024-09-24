@@ -29,8 +29,7 @@
                                 <div class="input-group input-group-merge">
                                     <span class="input-group-text"><i class="ti ti-user"></i></span>
                                     <input type="text" required id="basic-icon-default-user" name="fullname"
-                                        class="form-control" placeholder="{{ __('Enter first and last name') }}"
-                                        aria-describedby="basic-icon-default-email2" fdprocessedid="40irmg">
+                                        class="form-control" placeholder="{{ __('Enter first and last name') }}">
                                 </div>
                                 @error('fullname')
                                     <span class="error text-danger fs-7">{{ $message }}</span>
@@ -41,8 +40,7 @@
                                 <div class="input-group input-group-merge">
                                     <span class="input-group-text"><i class="ti ti-user"></i></span>
                                     <input type="text" required id="basic-icon-default-user" name="username"
-                                        class="form-control" placeholder="{{ __('Enter account name') }}"
-                                        aria-describedby="basic-icon-default-email2" fdprocessedid="40irmg">
+                                        class="form-control" placeholder="{{ __('Enter account name') }}">
                                 </div>
                                 @error('username')
                                     <span class="error text-danger fs-7">{{ $message }}</span>
@@ -55,8 +53,7 @@
                                     <span class="input-group-text"><i class="ti ti-mail"></i></span>
                                     <input type="email" required id="basic-icon-default-email" name="email"
                                         class="form-control" placeholder="{{ __('Enter email address') }}"
-                                        aria-label="john.doe" aria-describedby="basic-icon-default-email2"
-                                        fdprocessedid="40irmg">
+                                        aria-label="john.doe">
                                 </div>
                                 @error('email')
                                     <span class="error text-danger fs-7">{{ $message }}</span>
@@ -123,11 +120,11 @@
                         let error = res.data;
                         toastr.error(error, 'Lỗi');
                     } else if (res.error_code == 0) {
-                        toastr.success("Thêm thành công");
+                        toastr.success("add successfully");
                         $('#kt_modal_add_user_form').modal('hide');
                         $('#userDatatable').DataTable().ajax.reload();
                     } else {
-                        toastr.error("Thêm thất bại, thử lại sau");
+                        toastr.error("Add failed, try again later");
                     }
                 },
                 error: function(err) {

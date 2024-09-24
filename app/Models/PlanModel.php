@@ -40,6 +40,6 @@ class PlanModel extends Model
     }
     public function wallets()
     {
-        return $this->belongsTo(Wallets::class);
+        return $this->hasMany(Wallets::class);
     }
 }

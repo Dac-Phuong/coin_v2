@@ -675,6 +675,7 @@ class ComposerStaticInit9c491b8531eec05ba41a11d9276a5749
         'App\\Livewire\\Web\\Referal\\Referal' => __DIR__ . '/../..' . '/app/Livewire/Web/Referal/Referal.php',
         'App\\Livewire\\Web\\Withdraw\\ListWithdraw' => __DIR__ . '/../..' . '/app/Livewire/Web/Withdraw/ListWithdraw.php',
         'App\\Livewire\\Web\\Withdraw\\ModalWithdraw' => __DIR__ . '/../..' . '/app/Livewire/Web/Withdraw/ModalWithdraw.php',
+        'App\\Mail\\Sendmail' => __DIR__ . '/../..' . '/app/Mail/Sendmail.php',
         'App\\Mail\\authMail' => __DIR__ . '/../..' . '/app/Mail/authMail.php',
         'App\\Mail\\recover' => __DIR__ . '/../..' . '/app/Mail/recover.php',
         'App\\Models\\Coin_model' => __DIR__ . '/../..' . '/app/Models/Coin_model.php',

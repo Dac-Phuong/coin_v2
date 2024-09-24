@@ -42,6 +42,7 @@ use Illuminate\Support\Facades\Mail;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
 Route::fallback(function () {
     return view('web.errors.404');
 });
@@ -61,10 +62,10 @@ Route::get('/clear-cache', function () {
     return "All caches are cleared";
 });
 
-Route::get('/storage-link',function(){
-    $target = $_SERVER['DOCUMENT_ROOT'].'/storage/app/public';
-    $shortcut = $_SERVER['DOCUMENT_ROOT'].'/public/storage';
-    symlink($target,$shortcut);
+Route::get('/storage-link', function () {
+    $target = $_SERVER['DOCUMENT_ROOT'] . '/storage/app/public';
+    $shortcut = $_SERVER['DOCUMENT_ROOT'] . '/public/storage';
+    symlink($target, $shortcut);
 });
 
 Route::get('/register', Register::class);
@@ -115,14 +116,23 @@ Route::group(['prefix' => 'admin'], function () {
         Route::post('investor/create', [InvestorController::class, 'store'])->name('investor.create');
         Route::post('investor/update', [InvestorController::class, 'update'])->name('investor.update');
         Route::post('investor/delete', [InvestorController::class, 'destroy'])->name('investor.delete');
-        
-
-        Route::get('history-deposit/{id}', [InvestorController::class, 'history_deposit'])->name('history-deposit');
-        Route::get('history-withdraw/{id}', [InvestorController::class, 'history_withdraw'])->name('history-withdraw');
+        Route::post('investor/detail', [InvestorController::class, 'show'])->name('investor.detail');
+        Route::get('investor/history/deposit/{id}', [InvestorController::class, 'historyDeposit'])->name('history.deposit');
+        // Route::post('investor/history/deposit', [InvestorController::class, 'depositDatatable'])->name('history.deposit');
+        Route::get('investor/history/withdraw/{id}', [InvestorController::class, 'history_withdraw'])->name('history.withdraw');
         // wallets
         Route::get('list-wallets/{id}', [WalletController::class, 'index'])->name('wallets')->middleware('can:list-wallets');
+        Route::post('wallet/create', [WalletController::class, 'store'])->name('wallet.create');
+        Route::post('wallet/update', [WalletController::class, 'update'])->name('wallet.update');
+        Route::post('wallet/get', [WalletController::class, 'filterDataTable'])->name('wallet.list');
+        Route::post('wallet/delete', [WalletController::class, 'destroy'])->name('wallet.delete');
         // network
         Route::get('list-network', [NetworkController::class, 'index'])->name('network')->middleware('can:list-network');
+        Route::post('network/get', [NetworkController::class, 'filterDataTable'])->name('network.list');
+        Route::post('network/create', [NetworkController::class, 'store'])->name('network.create');
+        Route::post('network/update', [NetworkController::class, 'update'])->name('network.update');
+        Route::post('network/delete', [NetworkController::class, 'destroy'])->name('network.delete');
+
         Route::get('list-coin', [CoinController::class, 'index'])->name('coin')->middleware('can:list-coin');
         Route::get('list-profit', [CoinController::class, 'profit'])->name('profit')->middleware('can:list-coin');
         // plan fixed

@@ -30,8 +30,7 @@
                                 <div class="input-group input-group-merge">
                                     <span class="input-group-text"><i class="ti ti-user"></i></span>
                                     <input type="text" required id="basic-icon-default-user" name="fullname"
-                                        class="form-control" placeholder="{{ __('Enter first and last name') }}"
-                                        aria-describedby="basic-icon-default-email2" fdprocessedid="40irmg">
+                                        class="form-control" placeholder="{{ __('Enter first and last name') }}">
                                 </div>
                                 @error('fullname')
                                     <span class="error text-danger fs-7">{{ $message }}</span>
@@ -42,8 +41,7 @@
                                 <div class="input-group input-group-merge">
                                     <span class="input-group-text"><i class="ti ti-user"></i></span>
                                     <input type="text" required id="basic-icon-default-user" name="username"
-                                        class="form-control" placeholder="{{ __('Enter account name') }}"
-                                        aria-describedby="basic-icon-default-email2" fdprocessedid="40irmg">
+                                        class="form-control" placeholder="{{ __('Enter account name') }}">
                                 </div>
                                 @error('username')
                                     <span class="error text-danger fs-7">{{ $message }}</span>
@@ -56,8 +54,7 @@
                                     <span class="input-group-text"><i class="ti ti-mail"></i></span>
                                     <input type="email" required id="basic-icon-default-email" name="email"
                                         class="form-control" placeholder="{{ __('Enter email address') }}"
-                                        aria-label="john.doe" aria-describedby="basic-icon-default-email2"
-                                        fdprocessedid="40irmg">
+                                        aria-label="john.doe">
                                 </div>
                                 @error('email')
                                     <span class="error text-danger fs-7">{{ $message }}</span>
@@ -69,16 +66,14 @@
                                 <div class="input-group input-group-merge">
                                     <span class="input-group-text"><i
                                             class="ti ti-currency-dollar text-gray"></i></span>
-                                    <input type="text" disabled id="basic-icon-default-email"
-                                        name="balance" class="form-control"
-                                        placeholder="Enter account balance" aria-label=""
-                                        aria-describedby="basic-icon-default-email2" fdprocessedid="40irmg">
+                                    <input type="text" disabled id="basic-icon-default-email" name="balance"
+                                        class="form-control" placeholder="Enter account balance" aria-label="">
                                 </div>
                                 @error('balance')
                                     <span class="error text-danger fs-7">{{ $message }}</span>
                                 @enderror
                             </div>
-                             <div class="mb-3">
+                            <div class="mb-3">
                                 <label for="defaultSelect" class="form-label">{{ __('Select coin') }}</label>
                                 <select id="defaultSelect" name="coin_id" class="form-select">
                                     <option value="">Select coin</option>
@@ -94,8 +89,7 @@
                                     <span class="input-group-text"><i class="ti ti-currency-dollar"></i></span>
                                     <input type="number" step="any" id="basic-icon-default-email"
                                         name="account_balance" class="form-control"
-                                        placeholder="{{ __('Enter balance') }}" aria-label=""
-                                        aria-describedby="basic-icon-default-email2" fdprocessedid="40irmg">
+                                        placeholder="{{ __('Enter balance') }}" aria-label="">
                                 </div>
                                 @error('account_balance')
                                     <span class="error text-danger fs-7">{{ $message }}</span>
@@ -123,7 +117,7 @@
                                     @enderror
                                 </div>
                             </div>
-                          
+
                         </div>
                         <!--end::Input group-->
                     </div>
@@ -166,7 +160,7 @@
                     } else if (res.error_code == 0) {
                         toastr.success("Update successful");
                         $('#kt_modal_update').modal('hide');
-                        $('#userDatatable').DataTable().ajax.reload();
+                        $('#investorDatatable').DataTable().ajax.reload();
                     } else {
                         toastr.error("Update failed, try again later");
                     }
