@@ -20,21 +20,20 @@ class autoGetRateCoin
                 $coin->save();
             } else {
                 $url = "https://api.binance.com/api/v3/ticker/24hr?symbol={$coin->coin_name}USDT";
-                $promises[$coin->id] = $client->getAsync($url);
+                $promises[] = $client->getAsync($url)->then(
+                    function ($response) use ($coin) {
+                        $data = json_decode($response->getBody(), true);
+                        if (isset($data['lastPrice'])) {
+                            $coin->coin_price = $data['lastPrice'];
+                            $coin->save();
+                        }
+                    },
+                    function () use ($coin) {
+                        Log::error("Failed to fetch price for coin: {$coin->coin_name}");
+                    }
+                );
             }
         }
-        $responses = Utils::settle($promises)->wait();
-        foreach ($responses as $coinId => $response) {
-            if ($response['state'] === 'fulfilled') {
-                $data = json_decode($response['value']->getBody(), true);
-                if (isset($data['lastPrice'])) {
-                    $coin = Coin_model::find($coinId);
-                    $coin->coin_price = $data['lastPrice'];
-                    $coin->save();
-                }
-            } else {
-                Log::error("Failed to fetch price for coin ID: $coinId");
-            }
-        }
+        Utils::settle($promises)->wait();
     }
 }

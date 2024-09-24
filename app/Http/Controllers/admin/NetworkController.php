@@ -7,6 +7,7 @@ use App\Models\Network;
 use App\Models\PlanModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
@@ -20,7 +21,7 @@ class NetworkController extends Controller
     public function index()
     {
         $plan = PlanModel::get();
-        $network  = Network::get();
+        $network = Network::get();
         return view("admin.network.index", ['plan' => $plan, 'network' => $network]);
     }
     public function filterDataTable(Request $request)
@@ -79,7 +80,7 @@ class NetworkController extends Controller
         try {
             Network::create([
                 'network_name' => $data['network_name'],
-                'network_image' =>  $this->saveImage($data),
+                'network_image' => $this->saveImage($data),
                 'network_price' => $data['network_price'],
                 'description' => $data['description'],
                 'status' => $data['status'],
@@ -89,11 +90,7 @@ class NetworkController extends Controller
                 'message' => 'Create successful'
             ], 200);
         } catch (\Exception $e) {
-            $this->dispatch('error', $e->getMessage());
-            return response()->json([
-                'error_code' => 1,
-                'message' => 'Error'
-            ], 200);
+            Log::error('Error creating coin: ' . $e->getMessage());
         }
     }
     public function update(Request $request)
@@ -109,25 +106,30 @@ class NetworkController extends Controller
                 'error' => $validator->errors()->first()
             ]);
         }
-        $network = Network::find($data['id']);
-        if (!$network) {
+        try {
+            $network = Network::find($data['id']);
+            if (!$network) {
+                return response()->json([
+                    'error_code' => 0,
+                    'error' => 'network not found'
+                ]);
+            }
+            if (isset($data['network_image'])) {
+                $network->network_image = $this->saveImage($data);
+            }
+            $network->network_name = $data['network_name'];
+            $network->network_price = $data['network_price'];
+            $network->description = $data['description'];
+            $network->status = $data['status'];
+            $network->save();
             return response()->json([
                 'error_code' => 0,
-                'error' => 'network not found'
+                'message' => 'Update successfull'
             ]);
+        } catch (\Throwable $th) {
+            Log::error('Error creating coin: ' . $th->getMessage());
+
         }
-        if (isset($data['network_image'])) {
-            $network->network_image = $this->saveImage($data);
-        }
-        $network->network_name = $data['network_name'];
-        $network->network_price = $data['network_price'];
-        $network->description = $data['description'];
-        $network->status = $data['status'];
-        $network->save();
-        return response()->json([
-            'error_code' => 0,
-            'message' => 'Update successfull'
-        ]);
     }
     public function destroy(Request $request)
     {
@@ -138,6 +140,9 @@ class NetworkController extends Controller
                 'error_code' => 1,
                 'message' => 'network not found'
             ]);
+        }
+        if ($network->network_image) {
+            Storage::delete('public/' . $network->network_image);
         }
         $network->delete();
         return response()->json([

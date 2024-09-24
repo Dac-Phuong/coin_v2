@@ -132,8 +132,14 @@ Route::group(['prefix' => 'admin'], function () {
         Route::post('network/create', [NetworkController::class, 'store'])->name('network.create');
         Route::post('network/update', [NetworkController::class, 'update'])->name('network.update');
         Route::post('network/delete', [NetworkController::class, 'destroy'])->name('network.delete');
-
+        // coins
         Route::get('list-coin', [CoinController::class, 'index'])->name('coin')->middleware('can:list-coin');
+        Route::post('coin/get', [CoinController::class, 'filterDataTable'])->name('coin.list');
+        Route::post('coin/create', [CoinController::class, 'store'])->name('coin.create');
+        Route::post('coin/update', [CoinController::class, 'update'])->name('coin.update');
+        Route::post('coin/delete', [CoinController::class, 'destroy'])->name('coin.delete');
+
+
         Route::get('list-profit', [CoinController::class, 'profit'])->name('profit')->middleware('can:list-coin');
         // plan fixed
         Route::get('list-plan-fixeds', [PlanController::class, 'plan_fixed'])->name('plans-fixeds')->middleware('can:list-plan');
