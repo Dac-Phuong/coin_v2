@@ -47,7 +47,6 @@
                      // Show update
                      $(document).on('click', '.btn-edit', function() {
                          const data = getRowData($(this).closest('tr'));
-                         user_id = data.id;
                          $('#kt_modal_add_update input[name="id"]').val(data.id);
                          $('#kt_modal_add_update input[name="fullname"]').val(data.fullname);
                          $('#kt_modal_add_update input[name="username"]').val(data.username);
@@ -65,35 +64,31 @@
                                  id: data.id,
                                  _token: '{{ csrf_token() }}'
                              },
-                             success: function(response) {
-                                 $('#fullname').text(response.data.investor.fullname);
-                                 $('#email').text(response.data.investor.email);
-                                 $('#balance').text(formatNumber(response.data.investor
-                                     .balance));
-                                 $('#total_deposit').text(formatNumber(response.data
-                                     .total_deposit));
-                                 $('#total_widthdraw').text(formatNumber(response.data
-                                     .total_widthdraw));
-                                 $('#earned_toatl').text(formatNumber(response.data.investor
-                                     .earned_toatl));
-                                 $('#created_at').text(formatDate(response.data.investor
+                             success: function(res) {
+                                 $('#fullname').text(res.data.investor.fullname);
+                                 $('#email').text(res.data.investor.email);
+                                 $('#balance').text(formatNumber(res.data.investor.balance));
+                                 $('#total_deposit').text(formatNumber(res.data.total_deposit));
+                                 $('#total_widthdraw').text(formatNumber(res.data.total_widthdraw));
+                                 $('#earned_toatl').text(formatNumber(res.data.investor.earned_toatl));
+                                 $('#created_at').text(formatDate(res.data.investor
                                      .created_at));
-                                 if (response.data.investor.status == 1) {
+                                 if (res.data.investor.status == 1) {
                                      $('#status').text('inactive').css('color', 'red');
                                  } else {
                                      $('#status').text('active').css('color', 'green');
                                  }
 
                                  $('#listWallet').html('');
-                                 response.data.list_wallets.forEach(wallet => {
+                                 res.data.list_wallets.forEach(wallet => {
                                      $('#listWallet').append(
                                          `<li><a class="dropdown-item waves-effect">${wallet.network_name}:  ${wallet.wallet_address}</a></li>`
                                      );
                                  });
                                  $('#kt_modal_show_detail').modal('show');
                              },
-                             error: function(response) {
-                                 console.log(response);
+                             error: function(res) {
+                                 console.log(res);
                                  Swal.fire({
                                      icon: 'error',
                                      title: 'Oops...',
@@ -130,7 +125,7 @@
                                          id: data.id,
                                          _token: '{{ csrf_token() }}'
                                      },
-                                     success: function(response) {
+                                     success: function(res) {
                                          dt_basic.ajax.reload();
                                          Swal.fire({
                                              icon: 'success',

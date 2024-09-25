@@ -12,7 +12,6 @@ use App\Models\User;
 use App\Models\Wallets;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 
 class InterestCalculator
 {
@@ -35,6 +34,7 @@ class InterestCalculator
         $this->check_referal($investor);
         $this->updateStatusWallet();
         $this->updateAccountBalance($investor);
+       
     }
     // tính toán gói cố định
     public function calculatorInterestPlanFixed($investor)

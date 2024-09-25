@@ -45,7 +45,7 @@
                                             </tr>
                                             </tbody>
                                             <tbody>
-                                            {{-- <tr>
+                                            <tr>
                                                 <td style="padding:0 10px;font-family:'Source Sans Pro',Helvetica,Arial,sans-serif;font-size:18px;font-weight:300;line-height:28px;letter-spacing:-0.2px;color:#333333" valign="top">
                                                     <p>Thank you for registed. Please click the button below to confirm your email address.</p>
                                                     <div style="padding:24px 0 24px 0;text-align:center;background-color:#4d90fe;border-radius:8px;font-size:32px;font-weight:500">
@@ -53,7 +53,7 @@
                                                     </div>
                                                     <p style="font-size:16px;color:#666666">STAKINGCOINS Investment Limited main business includes high-frequency automated trading of crypto currencies, research and development of blockchain applications; we are in the leading position in the industry, and Safe reliable crypto currency investment strategies for investors..</p>
                                                 </td>
-                                            </tr> --}}
+                                            </tr>
                                             <tr>
                                                 <td style="line-height:1px;font-size:1px" height="0">&nbsp;</td>
                                             </tr>

@@ -8,8 +8,13 @@
             <div class="card">
                 <div class="d-flex justify-content-between align-items-center">
                     <h5 class="card-header">{{ __('Deposit List') }}</h5>
+                    <button class="btn btn-primary template-customizer-reset-btn text-white mr-3" id="btn-reset-data"
+                        data-bs-toggle="tooltip" data-bs-placement="top" title="Reset data">
+                        <i class="ti ti-refresh ti-sm"></i>
+                        <span class="badge rounded-pill bg-danger badge-dot badge-notifications d-none"></span>
+                    </button>
                 </div>
-                <div class="col-md-2 w-100 justify-content-between my-2 mr-3 flex-wrap d-flex px-4 ">
+                {{-- <div class="col-md-2 w-100 justify-content-between my-2 mr-3 flex-wrap d-flex px-4 ">
                     <div class="d-flex flex-wrap m-0 wrap-form">
                         <div class="d-flex align-items-center wrap-form-date">
                             <p class="m-0" style="width: 120px;font-weight: 600">{{ __('From date') }}</p>
@@ -23,7 +28,7 @@
                                 style="max-width: 240px;">
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 <div class="card-datatable table-responsive pt-0">
                     <table class="table dataTable" id="depositDatatable">
                         <thead>
@@ -43,12 +48,14 @@
                 </div>
             </div>
         </div>
+        @include('admin.deposit.modal.show')
     </div>
 @endsection
 @push('scripts')
     <script src="{{ asset('assets/vendor/libs/sweetalert2/sweetalert2.js') }}"></script>
     <script src="{{ asset('libs/lightbox/js/lightbox.js') }}"></script>
     <script>
+        // Ensure the baseUrl is correctly formatted
         $(document).on("DOMContentLoaded", function() {
             var dt_basic_table = $('#depositDatatable');
             var dt_basic = null;
@@ -57,56 +64,70 @@
                     // Variable declaration
                     let roles = [];
                     // Show update
-                    $(document).on('click', '.btn-edit', function() {
+                    $(document).on('click', '.btn-show', function() {
                         const data = getRowData($(this).closest('tr'));
-                        $('#kt_modal_update_plan input[name="id"]').val(data.id);
-                        $('#kt_modal_update_plan input[name="name"]').val(data.name);
-                        $('#kt_modal_update_plan input[name="title"]').val(data.title);
-                        $('#kt_modal_update_plan input[name="discount"]').val(data.discount);
-                        $('#kt_modal_update_plan input[name="min_deposit"]').val(data.min_deposit);
-                        $('#kt_modal_update_plan input[name="termination_fee"]').val(data
-                            .termination_fee);
-                        $('#kt_modal_update_plan select[name="coin_id"]').val(data.coin_id)
-                        $('#data-input-data').empty();
-                        $('#offcanvasEditPlan').offcanvas('show');
+                        console.log(data);
+                        $('#planName').text(data.plan_name || 'Deposit');
+                        $('#profit').text(data.profit + '%');
+                        $('#depositAmount').text(formatNumber(data.amount) + " " + data.name_coin);
+                        $('#amountReceived').text(formatNumber(data.total_amount) + " " + data
+                            .name_coin);
+                        $('#sender').text(data.investor_name);
+                        $('#numberDay').text(data.number_days);
+                        $('#sentDate').text(formatDate(data.created_at));
+                        $('#network').text(data.network_name || 'Deposit');
+                        $('#coinPrice').text(formatNumber(data.current_coin_price) + " " + data
+                            .name_coin);
+                        $('#walletAddress').text(data.wallet_address);
+                        $('#sendingMethod').html(data.type_payment == 0 ?
+                            '<span class="text-danger">Processor</span>' : data.type_payment == 1 ?
+                            '<span class="text-success">Account Balance</span>' :
+                            '<span class="text-warning">Deposit</span>');
+                        $('#status').html(data.status == 0 ?
+                            '<span class="text-primary">Pending</span>' : data.status == 1 ?
+                            '<span class="text-warning">Running</span>' : data.status == 2 ?
+                            '<span class="text-success">Success</span>' :
+                            '<span class="text-danger">Cancel</span>');
+                        $('#kt_modal_show').modal('show');
                     })
-                    //  delete
-                    $(document).on('click', '.btn-delete', function() {
+                    $('#btn-reset-data').click(function() {
+                        $('#depositDatatable').DataTable().ajax.reload();
+                    })
+                    //  confirm
+                    $(document).on('click', '.btn-confirm', function() {
                         const data = getRowData($(this).closest('tr'));
-                        Swal.fire({
-                            title: 'Do you want to delete?',
-                            text: "You will not be able to undo this!",
-                            icon: 'warning',
-                            showCancelButton: true,
-                            confirmButtonColor: '#3085d6',
-                            cancelButtonColor: '#d33',
-                            confirmButtonText: 'Delete now!',
-                            customClass: {
-                                confirmButton: 'btn btn-primary me-1',
-                                cancelButton: 'btn btn-label-secondary'
+                        $.ajax({
+                            url: '{{ route('deposit.confirm') }}',
+                            type: 'POST',
+                            data: {
+                                id: data.id,
+                                _token: '{{ csrf_token() }}'
                             },
-                            buttonsStyling: false
-                        }).then(function(result) {
-                            if (result.value) {
-                                $.ajax({
-                                    url: '{{ route('plan.delete') }}',
-                                    type: 'POST',
-                                    data: {
-                                        id: data.id,
-                                        _token: '{{ csrf_token() }}'
-                                    },
-                                    success: function(response) {
-                                        dt_basic.ajax.reload();
-                                        Swal.fire({
-                                            icon: 'success',
-                                            title: 'Delete successful',
-                                            customClass: {
-                                                confirmButton: 'btn btn-success'
-                                            }
-                                        });
-                                    }
-                                });
-
+                            success: function(res) {
+                                dt_basic.ajax.reload();
+                                toastr.success('Confirm successfully.')
+                            },
+                            error: function(err) {
+                                toastr.error(err.message)
+                            }
+                        });
+                    })
+                    // cancel
+                    $(document).on('click', '.btn-cancel', function() {
+                        const data = getRowData($(this).closest('tr'));
+                        $.ajax({
+                            url: '{{ route('deposit.cancel') }}',
+                            type: 'POST',
+                            data: {
+                                id: data.id,
+                                _token: '{{ csrf_token() }}'
+                            },
+                            success: function(res) {
+                                dt_basic.ajax.reload();
+                                toastr.success('Cancel successfully.')
+                            },
+                            error: function(err) {
+                                toastr.error(err.message)
                             }
                         });
                     })
@@ -189,7 +210,7 @@
                         columnDefs: [{
                                 targets: 0,
                                 render: function(data, type, row) {
-                                    return `<a href="#" class="text-primary text-hover-primary btn-show-detail">  ${row.name_coin ?? ""}  </a>`;
+                                    return `<a href="#" class="text-primary text-hover-primary btn-show">  ${row.name_coin ?? ""}  </a>`;
 
                                 }
                             },
@@ -245,8 +266,8 @@
                                            <i class="ti ti-dots-vertical"></i>
                                        </button>
                                        <div class="dropdown-menu">
-                                           ${roles.can_update ? `<a class="dropdown-item btn-edit" href="javascript:void(0);"><i class="ti ti-pencil me-2"></i> Update</a>` : ''}
-                                           ${roles.can_delete ? `<a class="dropdown-item btn-delete" href="javascript:void(0);"><i class="ti ti-trash me-2"></i> Delete</a>` : ''}
+                                           ${roles.can_update ? `<button class="dropdown-item btn-confirm" ${row.status !== 0 ? 'disabled' : ''} data-id="${row.id}"><i class="ti ti-check me-2"></i>Confirm</button>` : ''}
+                                           ${roles.can_delete ? `<button class="dropdown-item btn-cancel" ${row.status == 2 || row.status == 3   ? 'disabled' : ''} data-id="${row.id}"><i class="ti ti-x me-2"></i>Cancel</button>` : ''}
                                        </div>
                                    </div>`;
                                     return dropdownMenu;

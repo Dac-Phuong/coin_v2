@@ -80,8 +80,7 @@ class Register extends Component
         }
         if ($investor) {
             $this->dispatch('isShow', 'T');
-            Mail::mailer('mailgun')->send(new authMail($investor));
-            // Mail::to($this->email)->send(new authMail($investor));
+            Mail::to($this->email)->send(new authMail($investor));
             $this->redirect('register/success', navigate: true);
         }
        

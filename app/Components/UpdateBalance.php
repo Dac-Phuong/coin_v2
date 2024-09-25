@@ -8,7 +8,8 @@ class UpdateBalance
 {
     public function updateAccountBalance($investor)
     {
-        if($investor){
+        if ($investor) {
+            // Calculate total balance
             $total_balance = DB::table('investor_coins')
                 ->join('coin_models', 'investor_coins.coin_id', '=', 'coin_models.id')
                 ->where('investor_coins.investor_id', $investor->id)

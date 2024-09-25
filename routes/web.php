@@ -30,8 +30,6 @@ use App\Livewire\Web\Referal\Referal;
 use App\Livewire\Web\Home\Index;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
-use App\Mail\Sendmail;
-use Illuminate\Support\Facades\Mail;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -45,12 +43,6 @@ use Illuminate\Support\Facades\Mail;
 
 Route::fallback(function () {
     return view('web.errors.404');
-});
-
-
-Route::get('/send-email', function () {
-    Mail::to('nguyendacphuong14@gmail.com')->send(new Sendmail()); // Ensure TestMail implements Mailable
-    return 'Email sent successfully!';
 });
 
 // .......................................................................BEGIN............................................................................
@@ -91,7 +83,6 @@ Route::get('/edit-account', EditAccount::class);
 Route::get('/referrals', Referal::class);
 
 // .......................................................................END............................................................................
-
 
 // manage admin
 Route::group(['prefix' => 'admin'], function () {
