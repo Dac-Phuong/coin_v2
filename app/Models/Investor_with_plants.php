@@ -34,9 +34,9 @@ class Investor_with_plants extends Model
     {
         $query->where('name_coin', 'like', "%{$value}%")->orwhere('total_amount', 'like', "%{$value}%");
     }
-    public function plan()
+    public function plans()
     {
-        return $this->hasMany(PlanModel::class);
+        return $this->hasMany(PlanModel::class,'plan_id','id');
     }
     public function investor()
     {

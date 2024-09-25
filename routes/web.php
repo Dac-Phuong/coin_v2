@@ -138,21 +138,34 @@ Route::group(['prefix' => 'admin'], function () {
         Route::post('coin/create', [CoinController::class, 'store'])->name('coin.create');
         Route::post('coin/update', [CoinController::class, 'update'])->name('coin.update');
         Route::post('coin/delete', [CoinController::class, 'destroy'])->name('coin.delete');
-
-
-        Route::get('list-profit', [CoinController::class, 'profit'])->name('profit')->middleware('can:list-coin');
-        // plan fixed
-        Route::get('list-plan-fixeds', [PlanController::class, 'plan_fixed'])->name('plans-fixeds')->middleware('can:list-plan');
-        // plan daily
-        Route::get('list-plan-daily', [PlanController::class, 'plan_daily'])->name('plans-daily')->middleware('can:list-plan');
+        // plan
+        Route::group(['prefix' => 'plan'], function () {
+            Route::get('/list', [PlanController::class, 'index'])->name('plans')->middleware('can:list-plan');
+            Route::post('/get', [PlanController::class, 'filterDataTable'])->name('plan.list');
+            Route::post('/create', [PlanController::class, 'store'])->name('plan.create');
+            Route::post('/update', [PlanController::class, 'update'])->name('plan.update');
+            Route::post('/delete', [PlanController::class, 'destroy'])->name('plan.delete');
+            Route::post('/delete/item', [PlanController::class, 'delete'])->name('item.delete');
+        });
         // deposit
-        Route::get('list-deposit', [DepositController::class, 'index'])->name('deposits')->middleware('can:list-deposit');
+        Route::group(['prefix' => 'deposit'], function () {
+            Route::get('/list', [DepositController::class, 'index'])->name('deposits')->middleware('can:list-deposit');
+            Route::post('/get', [DepositController::class, 'filterDataTable'])->name('deposit.list');
+            Route::post('/confirm', [DepositController::class, 'confirm'])->name('deposit.confirm');
+            Route::post('/cancel', [DepositController::class, 'cancel'])->name('deposit.cancel');
+        });
         // withdraw
         Route::get('list-withdraw', [WithdrawController::class, 'index'])->name('withdraws')->middleware('can:list-withdraw');
         // referral
-        Route::get('list-referral', [ReferralController::class, 'index'])->name('referrals')->middleware('can:list-referral');
+        Route::group(['prefix' => 'referral'], function () {
+            Route::get('/list', [ReferralController::class, 'index'])->name('referrals')->middleware('can:list-referral');
+            Route::post('/get', [ReferralController::class, 'filterDataTable'])->name('referral.list');
+        });
         // settings
         Route::get('settings', [SettingController::class, 'index'])->name('settings');
+        Route::get('get', [SettingController::class, 'get'])->name('setting.get');
+        Route::post('setting/create', [SettingController::class, 'store'])->name('setting.create');
+        Route::post('setting/delete', [SettingController::class, 'destroy'])->name('setting.delete');
     });
 });
 // .......................................................................END............................................................................

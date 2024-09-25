@@ -30,16 +30,20 @@ class PlanModel extends Model
     {
         $query->where('name', 'like', "%{$value}%")->orwhere('discount', 'like', "%{$value}%")->orwhere('title', 'like', "%{$value}%");
     }
-    public function investorWithPlans()
+    public function deposit()
     {
         return $this->belongsTo(Investor_with_plants::class);
-    }
-    public function PlanNumberDays()
-    {
-        return $this->belongsTo(plan_number_days::class);
     }
     public function wallets()
     {
         return $this->hasMany(Wallets::class);
+    }
+    public function coins()
+    {
+        return $this->belongsTo(Coin_model::class, 'coin_id', 'id');
+    }
+    public function planNumberDays()
+    {
+        return $this->hasMany(plan_number_days::class, 'plan_id', 'id');
     }
 }

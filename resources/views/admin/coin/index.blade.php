@@ -118,7 +118,12 @@
 
                     function formatNumber(num, decimal = 2, type = 1) {
                         if (type !== 1) {
-                            return num.toFixed(decimal);
+                            return num % 1 === 0 ?
+                                num.toLocaleString('en-US') :
+                                num.toLocaleString('en-US', {
+                                    minimumFractionDigits: 0,
+                                    maximumFractionDigits: decimal
+                                });;
                         }
                         return new Intl.NumberFormat('en-US', {
                             style: 'currency',

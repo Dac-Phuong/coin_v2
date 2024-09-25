@@ -87,20 +87,19 @@
                 </li>
             @endcan
             @can('list-plan')
-                <li class="menu-item {{ request()->routeIs('plans-fixeds') ? 'active' : '' }}">
-                    <a href="{{ url('admin/list-plan-fixeds') }}" class="menu-link">
+                <li class="menu-item {{ request()->routeIs('plans') ? 'active' : '' }}">
+                    <a href="{{ url('admin/plan/list') }}" class="menu-link">
                         <i class="menu-icon ti ti-checklist"></i>
                         <div data-i18n="Gói cố định">{{ __('Plan') }}</div>
                     </a>
                 </li>
             @endcan
-
             <li class="menu-header small pt-1">
                 <span class="menu-header-text" data-i18n="Apps &amp; Pages">{{ __('Bill MANAGEMENT') }}</span>
             </li>
             @can('list-deposit')
                 <li class="menu-item {{ request()->routeIs('deposits') ? 'active' : '' }}">
-                    <a href="{{ url('admin/list-deposit') }}" class="menu-link">
+                    <a href="{{ url('admin/deposit/list') }}" class="menu-link">
                         <i class="menu-icon ti ti-credit-card"></i>
                         <div data-i18n="Danh sách đầu tư">{{ __('Deposit') }}</div>
                     </a>
@@ -116,7 +115,7 @@
             @endcan
             @can('list-referral')
                 <li class="menu-item {{ request()->routeIs('referrals') ? 'active' : '' }}">
-                    <a href="{{ url('admin/list-referral') }}" class="menu-link">
+                    <a href="{{ url('admin/referral/list') }}" class="menu-link">
                         <i class="menu-icon ti ti-share"></i>
                         <div data-i18n="Danh sách giới thiệu">{{ __('Referral') }}</div>
                     </a>

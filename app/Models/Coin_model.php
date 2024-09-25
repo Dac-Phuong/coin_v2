@@ -26,4 +26,8 @@ class Coin_model extends Model
     {
         $query->where('coin_name', 'like', "%{$value}%")->orwhere('coin_price', 'like', "%{$value}%");
     }
+    public function plans()
+    {
+        return $this->hasMany(PlanModel::class);
+    }
 }
