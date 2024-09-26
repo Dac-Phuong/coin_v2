@@ -44,14 +44,14 @@
                 <ul class="menu-sub">
                     @can('list-user')
                         <li class="menu-item {{ request()->routeIs('users') ? 'active' : '' }}">
-                            <a href="{{ url('admin/list-user') }}" class="menu-link">
+                            <a href="{{ url('admin/user/list') }}" class="menu-link">
                                 <div data-i18n="Danh sách">{{ __('Users') }}</div>
                             </a>
                         </li>
                     @endcan
                     @can('list-role')
                         <li class="menu-item {{ request()->routeIs('roles') ? 'active' : '' }}">
-                            <a href="{{ url('admin/list-role') }}" class="menu-link">
+                            <a href="{{ url('admin/role/list') }}" class="menu-link">
                                 <div data-i18n="Vai trò">{{ __('Roles') }}</div>
                             </a>
                         </li>
@@ -64,7 +64,7 @@
             <!-- Layouts -->
             @can('list-investor')
                 <li class="menu-item {{ request()->routeIs('investors') ? 'active' : '' }}">
-                    <a href="{{ url('admin/list-investor') }}" class="menu-link">
+                    <a href="{{ url('admin/investor/list') }}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-users"></i>
                         <div data-i18n="Danh sách">{{ __('Investor') }}</div>
                     </a>
@@ -72,7 +72,7 @@
             @endcan
             @can('list-network')
                 <li class="menu-item {{ request()->routeIs('network') ? 'active' : '' }}">
-                    <a href="{{ url('admin/list-network') }}" class="menu-link">
+                    <a href="{{ url('admin/network/list') }}" class="menu-link">
                         <i class="menu-icon ti ti-network"></i>
                         <div data-i18n="Danh sách đầu tư">{{ __('Network') }}</div>
                     </a>
@@ -80,7 +80,7 @@
             @endcan
             @can('list-coin')
                 <li class="menu-item {{ request()->routeIs('coin') ? 'active' : '' }}">
-                    <a href="{{ url('admin/list-coin') }}" class="menu-link">
+                    <a href="{{ url('admin/coin/list') }}" class="menu-link">
                         <i class="menu-icon ti ti-coin"></i>
                         <div data-i18n="Danh sách ví">{{ __('Coin') }}</div>
                     </a>
@@ -107,7 +107,7 @@
             @endcan
             @can('list-withdraw')
                 <li class="menu-item {{ request()->routeIs('withdraws') ? 'active' : '' }}">
-                    <a href="{{ url('admin/list-withdraw') }}" class="menu-link">
+                    <a href="{{ url('admin/withdraw/list') }}" class="menu-link">
                         <i class="menu-icon ti ti-wallet"></i>
                         <div data-i18n="Danh sách rút tiền">{{ __('Withdraw') }}</div>
                     </a>

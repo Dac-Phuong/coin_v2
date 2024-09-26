@@ -98,37 +98,59 @@ Route::group(['prefix' => 'admin'], function () {
     Route::group(['middleware' => ['auth']], function () {
         Route::get('', [DashboardController::class, 'index'])->name('dashboard');
         // user
-        Route::get('list-user', [UserController::class, 'index'])->name('users')->middleware('can:list-user');
+        Route::group(['prefix' => 'user'], function () {
+            Route::get('/list', [UserController::class, 'index'])->name('users')->middleware('can:list-user');
+            Route::post('/get', [UserController::class, 'filterDataTable'])->name('user.list');
+            Route::post('/create', [UserController::class, 'create'])->name('user.create');
+            Route::post('/update', [UserController::class, 'update'])->name('user.update');
+            Route::post('/delete', [UserController::class, 'destroy'])->name('user.delete');
+        });
         // roles
-        Route::get('list-role', [RoleController::class, 'index'])->name('roles')->middleware('can:list-role');
+        Route::group(['prefix' => 'role'], function () {
+            Route::get('/list', [RoleController::class, 'index'])->name('roles')->middleware('can:list-role');
+            Route::get('/get', [RoleController::class, 'getRoles'])->name('getRoles');
+            Route::post('/create', [RoleController::class, 'store'])->name('create.role');
+            Route::post('/update', [RoleController::class, 'update'])->name('update.role');
+            Route::get('/edit/{id}', [RoleController::class, 'show'])->name('edit.role');
+            Route::delete('/delete/{id}', [RoleController::class, 'destroy'])->name('delete-role');
+        });
         // investor
-        Route::get('list-investor', [InvestorController::class, 'index'])->name('investors')->middleware('can:list-investor');
-        Route::post('investor/get', [InvestorController::class, 'filterDataTable'])->name('investor.list');
-        Route::post('investor/create', [InvestorController::class, 'store'])->name('investor.create');
-        Route::post('investor/update', [InvestorController::class, 'update'])->name('investor.update');
-        Route::post('investor/delete', [InvestorController::class, 'destroy'])->name('investor.delete');
-        Route::post('investor/detail', [InvestorController::class, 'show'])->name('investor.detail');
-        Route::get('investor/history/deposit/{id}', [InvestorController::class, 'historyDeposit'])->name('history.deposit');
-        // Route::post('investor/history/deposit', [InvestorController::class, 'depositDatatable'])->name('history.deposit');
-        Route::get('investor/history/withdraw/{id}', [InvestorController::class, 'history_withdraw'])->name('history.withdraw');
+        Route::group(['prefix' => 'investor'], function () {
+            Route::get('/list', [InvestorController::class, 'index'])->name('investors')->middleware('can:list-investor');
+            Route::post('/get', [InvestorController::class, 'filterDataTable'])->name('investor.list');
+            Route::post('/create', [InvestorController::class, 'store'])->name('investor.create');
+            Route::post('/update', [InvestorController::class, 'update'])->name('investor.update');
+            Route::post('/delete', [InvestorController::class, 'destroy'])->name('investor.delete');
+            Route::post('/detail', [InvestorController::class, 'show'])->name('investor.detail');
+            Route::get('/history/deposit/{id}', [InvestorController::class, 'historyDeposit'])->name('history.deposit');
+            // Route::post('/history/deposit', [InvestorController::class, 'depositDatatable'])->name('history.deposit');
+            // Route::get('/history/withdraw/{id}', [InvestorController::class, 'history_withdraw'])->name('history.withdraw');
+        });
         // wallets
+       
         Route::get('list-wallets/{id}', [WalletController::class, 'index'])->name('wallets')->middleware('can:list-wallets');
         Route::post('wallet/create', [WalletController::class, 'store'])->name('wallet.create');
         Route::post('wallet/update', [WalletController::class, 'update'])->name('wallet.update');
         Route::post('wallet/get', [WalletController::class, 'filterDataTable'])->name('wallet.list');
         Route::post('wallet/delete', [WalletController::class, 'destroy'])->name('wallet.delete');
+
         // network
-        Route::get('list-network', [NetworkController::class, 'index'])->name('network')->middleware('can:list-network');
-        Route::post('network/get', [NetworkController::class, 'filterDataTable'])->name('network.list');
-        Route::post('network/create', [NetworkController::class, 'store'])->name('network.create');
-        Route::post('network/update', [NetworkController::class, 'update'])->name('network.update');
-        Route::post('network/delete', [NetworkController::class, 'destroy'])->name('network.delete');
+        Route::group(['prefix' => 'network'], function () {
+            Route::get('/list', [NetworkController::class, 'index'])->name('network')->middleware('can:list-network');
+            Route::post('/get', [NetworkController::class, 'filterDataTable'])->name('network.list');
+            Route::post('/create', [NetworkController::class, 'store'])->name('network.create');
+            Route::post('/update', [NetworkController::class, 'update'])->name('network.update');
+            Route::post('/delete', [NetworkController::class, 'destroy'])->name('network.delete');
+        });
+
         // coins
-        Route::get('list-coin', [CoinController::class, 'index'])->name('coin')->middleware('can:list-coin');
-        Route::post('coin/get', [CoinController::class, 'filterDataTable'])->name('coin.list');
-        Route::post('coin/create', [CoinController::class, 'store'])->name('coin.create');
-        Route::post('coin/update', [CoinController::class, 'update'])->name('coin.update');
-        Route::post('coin/delete', [CoinController::class, 'destroy'])->name('coin.delete');
+        Route::group(['prefix' => 'coin'], function () {
+            Route::get('list', [CoinController::class, 'index'])->name('coins')->middleware('can:list-coin');
+            Route::post('/get', [CoinController::class, 'filterDataTable'])->name('coin.list');
+            Route::post('/create', [CoinController::class, 'store'])->name('coin.create');
+            Route::post('/update', [CoinController::class, 'update'])->name('coin.update');
+            Route::post('/delete', [CoinController::class, 'destroy'])->name('coin.delete');
+        });
         // plan
         Route::group(['prefix' => 'plan'], function () {
             Route::get('/list', [PlanController::class, 'index'])->name('plans')->middleware('can:list-plan');
@@ -146,7 +168,12 @@ Route::group(['prefix' => 'admin'], function () {
             Route::post('/cancel', [DepositController::class, 'cancel'])->name('deposit.cancel');
         });
         // withdraw
-        Route::get('list-withdraw', [WithdrawController::class, 'index'])->name('withdraws')->middleware('can:list-withdraw');
+        Route::group(['prefix' => 'withdraw'], function () {
+            Route::get('/list', [WithdrawController::class, 'index'])->name('withdraws')->middleware('can:list-withdraw');
+            Route::post('/get', [WithdrawController::class, 'filterDataTable'])->name('withdraw.list');
+            Route::post('/confirm', [WithdrawController::class, 'confirm'])->name('withdraw.confirm');
+            Route::post('/cancel', [WithdrawController::class, 'cancel'])->name('withdraw.cancel');
+        });
         // referral
         Route::group(['prefix' => 'referral'], function () {
             Route::get('/list', [ReferralController::class, 'index'])->name('referrals')->middleware('can:list-referral');

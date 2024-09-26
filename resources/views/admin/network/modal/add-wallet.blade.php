@@ -1,4 +1,4 @@
-<div class="modal fade" id="kt_modal_add_wallet" tabindex="-1" aria-hidden="true" wire:ignore.self>
+<div class="modal fade" id="kt_modal_add_wallet" tabindex="-1" aria-hidden="true">
     <!--begin::Modal dialog-->
     <div class="modal-dialog modal-dialog-centered mw-650px">
         <!--begin::Modal content-->
@@ -37,9 +37,6 @@
                                             {{ $item->min_deposit }} </option>
                                     @endforeach
                                 </select>
-                                @error('plan_id')
-                                    <span class="error text-danger fs-7">{{ $message }}</span>
-                                @enderror
                             </div>
                             <div class="mb-2">
                                 <label class="form-label"
@@ -50,18 +47,12 @@
                                         <option value="{{ $item->id }}">{{ $item->network_name }} </option>
                                     @endforeach
                                 </select>
-                                @error('network_id')
-                                    <span class="error text-danger fs-7">{{ $message }}</span>
-                                @enderror
                             </div>
 
                             <label class="form-label"
                                 for="basic-default-country">{{ __('List address wallet') }}</label>
                             <textarea class="form-control" placeholder="{{ __('Enter list address wallet') }}" name="wallet_address"
                                 id="exampleFormControlTextarea1" rows="15"></textarea>
-                            @error('wallet_address')
-                                <span class="error text-danger fs-7">{{ $message }}</span>
-                            @enderror
                         </div>
                         <!--end::Input group-->
                     </div>

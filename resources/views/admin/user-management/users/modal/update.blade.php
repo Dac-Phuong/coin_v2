@@ -18,44 +18,35 @@
             <!--begin::Modal body-->
             <div class="modal-body mb-2">
                 <!--begin::Form-->
-                <form id="kt_modal_add_user_form" class="form" action="#" wire:submit.prevent="submit"
-                    enctype="multipart/form-data">
+                <form id="kt_modal_update_user" class="form" enctype="multipart/form-data">
                     <!--begin::Scroll-->
                     <!--begin::Input group-->
                     <div class="mb-4">
                         <div class="card-body">
+                            <input type="text" name="id" hidden>
                             <div class="mb-2">
                                 <label class="form-label" for="basic-icon-default-user">{{ __('User Name') }}</label>
                                 <div class="input-group input-group-merge">
                                     <span class="input-group-text"><i class="ti ti-user"></i></span>
-                                    <input type="text" id="basic-icon-default-user" wire:model.defer="name"
-                                        class="form-control" placeholder="{{ __('Enter username') }}"
-                                        aria-label="john.doe" aria-describedby="basic-icon-default-email2"
-                                        fdprocessedid="40irmg">
+                                    <input type="text" id="basic-icon-default-user" name="name"
+                                        class="form-control" placeholder="{{ __('Enter username') }}">
                                 </div>
-                                @error('name')
-                                    <span class="error text-danger fs-7">{{ $message }}</span>
-                                @enderror
+
                             </div>
                             <div class="mb-2">
                                 <label class="form-label"
                                     for="basic-icon-default-email">{{ __('Email Address') }}</label>
                                 <div class="input-group input-group-merge">
                                     <span class="input-group-text"><i class="ti ti-mail"></i></span>
-                                    <input type="text" id="basic-icon-default-email" wire:model.defer="email"
-                                        class="form-control" placeholder="{{ __('Enter email address') }}"
-                                        aria-label="john.doe" aria-describedby="basic-icon-default-email2"
-                                        fdprocessedid="40irmg">
+                                    <input type="text" id="basic-icon-default-email" name="email"
+                                        class="form-control" placeholder="{{ __('Enter email address') }}">
                                 </div>
-                                @error('email')
-                                    <span class="error text-danger fs-7">{{ $message }}</span>
-                                @enderror
                             </div>
                             <div class="mb-2">
                                 <div class="form-password-toggle">
                                     <label class="form-label" for="multicol-password">{{ __('Password') }}</label>
                                     <div class="input-group input-group-merge">
-                                        <input type="password" id="multicol-password" wire:model.defer="password"
+                                        <input type="password" id="multicol-password" name="password"
                                             class="form-control" placeholder="············"
                                             aria-describedby="multicol-password2" fdprocessedid="vb9bj">
                                         <span class="input-group-text cursor-pointer" id="multicol-password2"><i
@@ -68,9 +59,8 @@
                             </div>
                             <div class="col-md-4 user_plan w-100">
                                 <label class="form-label" for="multicol-password">{{ __('User Roles') }}</label>
-                                <select id="UserPlan" wire:model.defer="role_name" class="form-select text-capitalize"
-                                    fdprocessedid="ibeieu">
-                                    <option value="">{{ __('Cancel role') }}</option>
+                                <select id="UserPlan" name="role" class="form-select text-capitalize">
+                                    <option value="">{{ __('Select Role') }}</option>
                                     @foreach ($list_role as $key => $role)
                                         <option value="{{ $role->name }}">{{ $role->name }}</option>
                                     @endforeach
@@ -84,13 +74,9 @@
                     <!--begin::Actions-->
                     <div class="text-center pt-15">
                         <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal" aria-label="Close"
-                            wire:loading.attr="disabled">Hủy</button>
-                        <button type="submit" class="btn btn-primary" data-kt-users-modal-action="submit">
-                            <span class="indicator-label">Lưu</span>
-                            <span class="indicator-progress" wire:loading wire:target="submit">
-                                ...
-                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
-                            </span>
+                            wire:loading.attr="disabled">{{ __('Cancel') }}</button>
+                        <button type="submit" class="btn btn-primary" id="btn-submit-update">
+                            <span class="indicator-label">{{ __('Save') }}</span>
                         </button>
                     </div>
                     <!--end::Actions-->
@@ -103,3 +89,36 @@
     </div>
     <!--end::Modal dialog-->
 </div>
+@push('scripts')
+    <script>
+        $("#btn-submit-update").click(function(e) {
+            e.preventDefault();
+            let formData = new FormData($("#kt_modal_update_user")[0]);
+            formData.append("_token", "{{ csrf_token() }}");
+            $.ajax({
+                url: "{{ route('user.update') }}",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(res) {
+                    if (res.error_code == -1) {
+                        let error = res.data;
+                        toastr.error(error);
+                    } else if (res.error_code == 0) {
+                        toastr.success("Update successfully");
+                        $('#kt_modal_update').modal('hide');
+                        $('#userDatatable').DataTable().ajax.reload();
+                    } else if (res.error_code == 1) {
+                        toastr.error(res.error);
+                    } else {
+                        toastr.error("Update failed, try again later");
+                    }
+                },
+                error: function(err) {
+                    console.log(err);
+                }
+            })
+        });
+    </script>
+@endpush

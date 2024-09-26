@@ -1,4 +1,4 @@
-<div class="modal fade" id="kt_modal_add_network" tabindex="-1" aria-hidden="true" wire:ignore.self>
+<div class="modal fade" id="kt_modal_add_network" tabindex="-1" aria-hidden="true" >
     <!--begin::Modal dialog-->
     <div class="modal-dialog modal-dialog-centered mw-650px">
         <!--begin::Modal content-->
@@ -18,7 +18,7 @@
             <!--begin::Modal body-->
             <div class="modal-body mb-3">
                 <!--begin::Form-->
-                <form id="kt_modal_add" class="form" action="#" wire:submit.prevent="submit"
+                <form id="kt_modal_add" class="form" 
                     enctype="multipart/form-data">
                     <!--begin::Scroll-->
                     <!--begin::Input group-->
