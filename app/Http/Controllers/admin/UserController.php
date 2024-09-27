@@ -123,11 +123,11 @@ class UserController extends Controller
             }
             $user->name = $request->name;
             $user->email = $request->email;
-            $user->email = $request->email;
+            $user->role = $request->role;
             $user->save();
-            $role = Role::where('name', $user->role)->first();
-            if ($role) {
-                $user->assignRole($user->role);
+            $role_name = Role::where('name', $user->role)->first();
+            if ($role_name) {
+                $user->assignRole($request->role);
             }
             return response()->json([
                 'error_code' => 0,

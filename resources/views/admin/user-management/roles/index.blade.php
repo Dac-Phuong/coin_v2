@@ -26,7 +26,7 @@
         $(document).ready(function() {
             var permissions = [];
             var title = $('.role-title');
-            var roleName = $('#RoleName');
+            var role = $('#RoleName');
             let role_id = null;
             var checkboxes = $('.permission-checkbox');
             // checked all
@@ -41,7 +41,7 @@
             // show modal
             $(document).on('click', '.showModal', function(event) {
                 checkboxes.prop('checked', false);
-                roleName.val('');
+                role.val('');
                 role_id = null;
                 permissions = [];
                 title.text('{{ __('Add New Role') }}');
@@ -103,8 +103,8 @@
                                                               <div class="col-sm-7">
                                                                   <div class="card-body text-sm-end text-center ps-sm-0">
                                                                       <button
-                                                                          class="btn btn-sm btn-primary mb-4 text-nowrap add-new-role waves-effect waves-light showModal">Add new role</button>
-                                                                      <p class="mb-0 mt-1">Add new role,<br> if the role does not exist yet.</p>
+                                                                          class="btn btn-sm btn-primary mb-4 text-nowrap add-new-role waves-effect waves-light showModal">{{__('Add new role')}}</button>
+                                                                      <p class="mb-0 mt-1">{{__('Add new role, if the role does not exist yet.')}}</p>
                                                                   </div>
                                                               </div>
                                                           </div>
@@ -126,23 +126,23 @@
                 var roleId = $(this).data('role-id');
                 role_id = roleId;
                 title.text('Edit role');
-                $.get(`/user/role/edit/${role_id}`, function(res) {
+                $.get(`/admin/role/edit/${role_id}`, function(res) {
                     if (res.error_code == 0) {
-                        roleName.val(res.data.role.name);
+                        role.val(res.data.role.name);
                         checkboxes.prop('checked', false);
                         res.data.permissions.forEach(function(permissionId) {
                             $(`.permission-checkbox[value="${permissionId}"]`).prop(
                                 'checked', true);
                         });
-                        $('#addRoleModal').modal('show');
+                        $('#kt_modal_add').modal('show');
                     } else {
                         toastr.error(res.message, 'Error');
                     }
                 });
             });
             // update role
-            $(document).on('click', '.add-role-btn', function(event) {
-                event.preventDefault();
+            $(document).on('click', '#save-role-btn', function(e) {
+                e.preventDefault();
                 permissions = [];
                 var checkedCheckboxes = $('.permission-checkbox:checked');
                 checkedCheckboxes.each(function() {
@@ -153,13 +153,13 @@
                 });
                 if (role_id) {
                     $.ajax({
-                        url: '/user/role/update',
+                        url: '/admin/role/update',
                         type: 'POST',
                         data: {
-                            role_name: roleName.val(),
+                            role: role.val(),
                             role_id: role_id,
                             permissions: permissions,
-                            _token: $('meta[name="csrf-token"]').attr('content')
+                           _token: '{{ csrf_token() }}'
                         },
                         success: function(res) {
                             if (res.error_code == 0) {
@@ -167,7 +167,11 @@
                                 $('#kt_modal_add').modal('hide');
                                 loadRoles();
                             } else {
-                                toastr.error(res.message);
+                                if (res.error_code == 1) {
+                                    toastr.error(res.error);
+                                } else {
+                                    toastr.error(res.message);
+                                }
                             }
                         },
                         error: function(xhr, status, error) {
@@ -177,44 +181,44 @@
                     });
                 } else {
                     $.ajax({
-                        url: '/user/role/create',
+                        url: '/admin/role/create',
                         type: 'POST',
                         data: {
-                            role_name: roleName.val(),
+                            role: role.val(),
                             permissions: permissions,
-                            _token: $('meta[name="csrf-token"]').attr('content')
+                           _token: '{{ csrf_token() }}'
                         },
                         success: function(res) {
                             if (res.error_code == 0) {
                                 toastr.success(res.message);
-                                $('#addRoleModal').modal('hide');
+                                $('#kt_modal_add').modal('hide');
                                 loadRoles();
                             } else {
                                 if (res.error_code == 1) {
-                                    toastr.error(res.errors.role_name, 'Lỗi');
+                                    toastr.error(res.error);
                                 } else {
-                                    toastr.error(res.message, 'Lỗi');
+                                    toastr.error(res.message);
                                 }
                             }
                         },
                         error: function(xhr, status, error) {
                             console.error(error);
-                            toastr.error('Đã có lỗi xảy ra. Vui lòng thử lại');
+                            toastr.error('An error occurred. Please try again');
                         }
                     });
                 }
             });
-            $(document).on('click', '.delete-role-btn', function(event) {
-                event.preventDefault();
+            $(document).on('click', '.delete-role-btn', function(e) {
+                e.preventDefault();
                 var roleId = $(this).data('role-id');
                 Swal.fire({
-                    title: 'Bạn có muốn xóa không?',
-                    text: "Bạn sẽ không thể hoàn tác điều này!",
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
-                    confirmButtonText: 'Xóa ngay!',
+                    confirmButtonText: 'Delete now!',
                     customClass: {
                         confirmButton: 'btn btn-primary me-1',
                         cancelButton: 'btn btn-label-secondary'
@@ -223,10 +227,10 @@
                 }).then(function(result) {
                     if (result.value) {
                         $.ajax({
-                            url: `/user/role/delete/${roleId}`,
+                            url: `/admin/role/delete/${roleId}`,
                             type: 'DELETE',
                             data: {
-                                _token: $('meta[name="csrf-token"]').attr('content'),
+                                 _token: '{{ csrf_token() }}'
                             },
                             success: function(res) {
                                 if (res.error_code == 0) {
@@ -238,7 +242,7 @@
                             },
                             error: function(xhr, status, error) {
                                 console.error(error);
-                                toastr.error('Đã có lỗi xảy ra. Vui lòng thử lại');
+                                toastr.error('An error occurred. Please try again');
                             }
                         });
                     }

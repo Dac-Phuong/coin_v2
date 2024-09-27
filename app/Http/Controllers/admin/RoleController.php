@@ -34,17 +34,18 @@ class RoleController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'role_name' => 'required|string|unique:roles,name',
+            'role' => 'required|string|unique:roles,name',
         ]);
         try {
             if ($validator->fails()) {
                 return response()->json([
                     'error_code' => 1,
                     'message' => trans('Invalid data'),
-                    'errors' => $validator->errors()
+                    'error' => $validator->errors()->first()
                 ]);
             }
-            $role = Role::create(['name' => $request->role_name]);
+
+            $role = Role::create(['name' => $request->role]);
             $role->syncPermissions($request->permissions);
             return response()->json([
                 'error_code' => 0,
@@ -60,13 +61,13 @@ class RoleController extends Controller
     public function update(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'role_name' => ['required', 'string', 'unique:roles,name,' . $request->id],
+            'role' => ['required', 'string', 'unique:roles,name,' . $request->role_id],
         ]);
         if ($validator->fails()) {
             return response()->json([
                 'error_code' => 1,
                 'message' => trans('Invalid data'),
-                'errors' => $validator->errors()
+                'error' => $validator->errors()->first()
             ]);
         }
         try {
@@ -77,7 +78,7 @@ class RoleController extends Controller
                     'message' => trans('Role not found')
                 ]);
             }
-            $role->name = $request->role_name;
+            $role->name = $request->role;
             $role->save();
             $role->syncPermissions($request->permissions);
             return response()->json([

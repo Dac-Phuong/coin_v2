@@ -20,8 +20,8 @@
                 <!--begin::Form-->
                 <form class="row g-3 fv-plugins-bootstrap5 fv-plugins-framework">
                     <div class="col-12 mb-3 fv-plugins-icon-container">
-                        <label class="form-label fs-6" for="modalRoleName">{{ __('Name Role') }}</label>
-                        <input type="text" id="modalRoleName" required name="role" class="form-control"
+                        <label class="form-label fs-6" for="RoleName">{{ __('Name Role') }}</label>
+                        <input type="text" id="RoleName" required name="role" class="form-control"
                             placeholder="{{ __('Enter name role') }}" tabindex="-1">
                     </div>
                     <div class="col-12">
@@ -64,7 +64,7 @@
                                                                 id="userManagementRead1.{{ $key }}">
                                                             <label class="form-check-label"
                                                                 for="userManagementRead1.{{ $key }}">
-                                                                Xem
+                                                                {{__('View')}}
                                                             </label>
                                                         </div>
                                                         @if (isset($item['permissions']['create']))
@@ -76,7 +76,7 @@
                                                                     id="userManagementRead2.{{ $key }}">
                                                                 <label class="form-check-label"
                                                                     for="userManagementRead2.{{ $key }}">
-                                                                    Thêm
+                                                                    {{__('Add')}}
                                                                 </label>
                                                             </div>
                                                         @endif
@@ -89,7 +89,7 @@
                                                                     id="userManagementRead3.{{ $key }}">
                                                                 <label class="form-check-label"
                                                                     for="userManagementRead3.{{ $key }}">
-                                                                    Sửa
+                                                                    {{__('Edit')}}
                                                                 </label>
                                                             </div>
                                                         @endif
@@ -102,7 +102,7 @@
                                                                     id="userManagementRead4.{{ $key }}">
                                                                 <label class="form-check-label"
                                                                     for="userManagementRead4.{{ $key }}">
-                                                                    Xóa
+                                                                    {{__('Delete')}}
                                                                 </label>
                                                             </div>
                                                         @endif
@@ -115,7 +115,7 @@
                                                                     id="userManagementRead5.{{ $key }}">
                                                                 <label class="form-check-label"
                                                                     for="userManagementRead5.{{ $key }}">
-                                                                    Duyệt
+                                                                    {{__('Confirm')}}
                                                                 </label>
                                                             </div>
                                                         @endif
@@ -128,7 +128,7 @@
                                                                     id="userManagementRead6.{{ $key }}">
                                                                 <label class="form-check-label"
                                                                     for="userManagementRead6.{{ $key }}">
-                                                                    Hủy
+                                                                    {{__('Cancel')}}
                                                                 </label>
                                                             </div>
                                                         @endif
