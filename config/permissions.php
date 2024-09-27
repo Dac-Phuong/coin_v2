@@ -7,6 +7,36 @@ return [
         ],
     ],
     [
+        "label" => "Settings manage",
+        "permissions" => [
+            "list" => "settings",
+        ],
+    ],
+    [
+        "label" => "Manage deposits",
+        "permissions" => [
+            "list" => "list-deposit",
+            "confirm" => "confirm-deposit",
+            "cancel" => "cancel-deposit",
+        ],
+    ],
+    [
+        "label" => "Manage withdraw",
+        "permissions" => [
+            "list" => "list-withdraw",
+            "confirm" => "confirm-withdraw",
+            "cancel" => "cancel-withdraw",
+        ],
+    ],
+    [
+        "label" => "Investor manage",
+        "permissions" => [
+            "list" => "list-investor",
+            "update" => "update-investor",
+            "delete" => "delete-investor",
+        ],
+    ],
+    [
         "label" => "User manager",
         "permissions" => [
             "list" => "list-user",
@@ -24,14 +54,7 @@ return [
             "delete" => "delete-role",
         ],
     ],
-    [
-        "label" => "Investor manage",
-        "permissions" => [
-            "list" => "list-investor",
-            "update" => "update-investor",
-            "delete" => "delete-investor",
-        ],
-    ],
+    
     [
         "label" => "Manage investment plan",
         "permissions" => [
@@ -69,26 +92,5 @@ return [
             "delete" => "delete-wallet",
         ],
     ],
-    [
-        "label" => "Manage deposits",
-        "permissions" => [
-            "list" => "list-deposit",
-            "confirm" => "confirm-deposit",
-            "cancel" => "cancel-deposit",
-        ],
-    ],
-    [
-        "label" => "Manage withdraw",
-        "permissions" => [
-            "list" => "list-withdraw",
-            "confirm" => "confirm-withdraw",
-            "cancel" => "cancel-withdraw",
-        ],
-    ],
-    [
-        "label" => "Settings manage",
-        "permissions" => [
-            "list" => "settings",
-        ],
-    ],
+
 ];

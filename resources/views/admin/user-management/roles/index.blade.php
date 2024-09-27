@@ -12,7 +12,7 @@
             </div>
 
         </div>
-
+        @include('admin.components.loading')
         {{-- BEGIN modal --}}
         @include('admin.user-management.roles.modal.create')
         @include('admin.user-management.roles.modal.update')
@@ -63,7 +63,7 @@
                             <div class="card py-1">
                                 <div class="card-body">
                                     <div class="d-flex justify-content-between">
-                                        <h6 class="fw-normal mb-2">Tổng cộng ${role?.users?.length} người dùng</h6>
+                                        <h6 class="fw-normal mb-2">Total ${role?.users?.length} users</h6>
                                         <ul class="list-unstyled d-flex align-items-center avatar-group mb-0"> `;
                                 $.each(role?.users?.slice(0, 5), function(i, user) {
                                     roleHtml += `
@@ -79,7 +79,7 @@
                                         <div class="role-heading">
                                             <h4 class="mb-1">${role?.name}</h4>
                                             <div class="d-flex justify-content-between ">
-                                                ${res.data.can_update ? `<div data-role-id="${role?.id}" class="role-edit-modal text-primary cursor-pointer edit-role-btn"> <span>Sửa vai trò</span> </div>`: '' }
+                                                ${res.data.can_update ? `<div data-role-id="${role?.id}" class="role-edit-modal text-primary cursor-pointer edit-role-btn"> <span>Edit role</span> </div>`: '' }
                                                 ${res.data.can_delete  ? `<div data-role-id="${role?.id}" class="text-muted cursor-pointer delete-role-btn"><i class="ti ti-trash ti-md"></i></div>` : ''}
                                             </div>
                                         </div>
@@ -103,8 +103,8 @@
                                                               <div class="col-sm-7">
                                                                   <div class="card-body text-sm-end text-center ps-sm-0">
                                                                       <button
-                                                                          class="btn btn-sm btn-primary mb-4 text-nowrap add-new-role waves-effect waves-light showModal">Thêm vai trò mới</button>
-                                                                      <p class="mb-0 mt-1">Thêm vai trò mới,<br> nếu vai trò đó chưa tồn tại.</p>
+                                                                          class="btn btn-sm btn-primary mb-4 text-nowrap add-new-role waves-effect waves-light showModal">Add new role</button>
+                                                                      <p class="mb-0 mt-1">Add new role,<br> if the role does not exist yet.</p>
                                                                   </div>
                                                               </div>
                                                           </div>
@@ -125,7 +125,7 @@
             $(document).on('click', '.edit-role-btn', function() {
                 var roleId = $(this).data('role-id');
                 role_id = roleId;
-                title.text('Sửa vai trò');
+                title.text('Edit role');
                 $.get(`/user/role/edit/${role_id}`, function(res) {
                     if (res.error_code == 0) {
                         roleName.val(res.data.role.name);
@@ -164,7 +164,7 @@
                         success: function(res) {
                             if (res.error_code == 0) {
                                 toastr.success(res.message);
-                                $('#addRoleModal').modal('hide');
+                                $('#kt_modal_add').modal('hide');
                                 loadRoles();
                             } else {
                                 toastr.error(res.message);

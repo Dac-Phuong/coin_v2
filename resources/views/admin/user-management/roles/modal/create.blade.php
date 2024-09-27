@@ -31,10 +31,10 @@
                             <table class="table table-flush-spacing">
                                 <tbody>
                                     <tr>
-                                        <td class="text-nowrap fw-medium text-heading">Administrator access<i class="ti ti-info-circle" data-bs-toggle="tooltip"
+                                        <td class="text-nowrap fw-medium text-heading">{{ __('Administrator access') }}<i class="ti ti-info-circle" data-bs-toggle="tooltip"
                                                 data-bs-placement="top"
-                                                aria-label="Allow full access to the system"
-                                                data-bs-original-title="Allow full access to the system"></i>
+                                                aria-label="{{ __('Allow full access to the system') }}"
+                                                data-bs-original-title="{{ __('Allow full access to the system') }}"></i>
                                         </td>
                                         <td>
                                             <div class="d-flex justify-content-end">
@@ -52,7 +52,7 @@
                                         @foreach ($data as $key => $item)
                                             <tr>
                                                 <td class="text-nowrap fw-medium text-heading">
-                                                    {{ $item['label'] }}
+                                                    {{ __($item['label']) }}
                                                 </td>
                                                 <td>
                                                     <div class="d-flex justify-content-end">
@@ -119,6 +119,19 @@
                                                                 </label>
                                                             </div>
                                                         @endif
+                                                        @if (isset($item['permissions']['cancel']))
+                                                            <div class="form-check mb-0 me-4 me-lg-12">
+                                                                <input class="form-check-input permission-checkbox"
+                                                                    name="permissions[]"
+                                                                    value="{{ $item['permissions']['cancel'] }}"
+                                                                    type="checkbox"
+                                                                    id="userManagementRead6.{{ $key }}">
+                                                                <label class="form-check-label"
+                                                                    for="userManagementRead6.{{ $key }}">
+                                                                    Hủy
+                                                                </label>
+                                                            </div>
+                                                        @endif
                                                     </div>
                                                 </td>
                                             </tr>
@@ -131,7 +144,7 @@
                     </div>
                     <div class="col-12 text-center mt-4">
                         <button type="submit"
-                            class="btn btn-primary me-sm-3 me-1 waves-effect waves-light">{{ __('Save') }}</button>
+                            class="btn btn-primary me-sm-3 me-1 waves-effect waves-light" id="save-role-btn">{{ __('Save') }}</button>
                         <button type="reset" class="btn btn-label-secondary waves-effect" data-bs-dismiss="modal"
                             aria-label="Close">{{ __('Cancel') }}</button>
                     </div>
