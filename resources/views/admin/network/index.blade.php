@@ -124,7 +124,6 @@
 
                 function formatDate(dateStr) {
                     const dateObj = new Date(dateStr);
-
                     const formattedDate = dateObj.toLocaleString("en-US", {
                         year: "numeric",
                         month: "long",

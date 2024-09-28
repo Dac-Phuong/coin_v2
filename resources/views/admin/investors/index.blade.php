@@ -248,8 +248,8 @@
                                                 <i class="ti ti-dots-vertical"></i>
                                             </button>
                                             <div class="dropdown-menu">
-                                                ${roles.can_deposit ? `<a class="dropdown-item" href="/admin/investor/history/deposit/${row.id}"><i class="ti ti-history"></i> History Deposit</a>` : ''}
-                                                ${roles.can_withdraw ? `<a class="dropdown-item" href="/admin/investor/history/withdraw/${row.id}"><i class="ti ti-history"></i> History Withdraw</a>` : ''}
+                                                ${roles.can_deposit ? `<a class="dropdown-item" href="/admin/investor-deposit-history/${row.id}"><i class="ti ti-history"></i> History Deposit</a>` : ''}
+                                                ${roles.can_withdraw ? `<a class="dropdown-item" href="/admin/investor-withdraw-history/${row.id}"><i class="ti ti-history"></i> History Withdraw</a>` : ''}
                                                 ${roles.can_update ? `<a class="dropdown-item btn-edit" href="javascript:void(0);"><i class="ti ti-pencil me-2"></i> Update</a>` : ''}
                                                 ${roles.can_delete ? `<a class="dropdown-item btn-delete" href="javascript:void(0);"><i class="ti ti-trash me-2"></i> Delete</a>` : ''}
                                             </div>

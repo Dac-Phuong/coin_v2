@@ -192,33 +192,98 @@ class InvestorController extends Controller
     {
         return view("admin.investors.history.deposit", ['id' => $id]);
     }
+
     public function depositDataTable(Request $request)
     {
         $data = $request->all();
+
         // Page Length
-        $pageLength = 6;
-        $pageNumber = $data['page'] ?? 1;
+        $pageNumber = ($data['start'] / $data['length']) + 1;
+        $pageLength = $data['length'] ?? 10;
         $skip = ($pageNumber - 1) * $pageLength;
+        // Page Order
+        $orderColumnIndex = $data['order'][0]['column'] ?? '0';
+        $orderByColumn = $data['columns'][$orderColumnIndex]['data'];
+        $orderType = $data['order'][0]['dir'] ?? 'desc';
+
         $query = $this->investor_with_plants->query();
-        $recordsTotal = $query->count();
-        $result = $query
-            ->join('investors', 'investor_with_plants.investor_id', '=', 'investors.id')
+        $query->join('investors', 'investor_with_plants.investor_id', '=', 'investors.id')
             ->join('plan_models', 'investor_with_plants.plan_id', '=', 'plan_models.id')
-            ->select('plan_models.*', 'investor_with_plants.id as Investor_with_plants_id', 'investor_with_plants.number_days as number_days', 'investor_with_plants.name_coin as name_coin', 'investor_with_plants.status as investor_with_plants_status', 'investor_with_plants.amount as amount', 'investor_with_plants.total_amount as total_amount', 'investor_with_plants.created_at as start_date', 'investors.fullname as investor_name', 'plan_models.name as plan_name', 'plan_models.title as plan_title', 'investor_with_plants.profit as plan_discount')
-            ->orderBy('created_at', 'DESC')
-            ->where('investor_id',$data['investor_id'])
+            ->select(
+                'plan_models.*',
+                'investor_with_plants.id as Investor_with_plants_id',
+                'investor_with_plants.number_days as number_days',
+                'investor_with_plants.name_coin as name_coin',
+                'investor_with_plants.status as investor_with_plants_status',
+                'investor_with_plants.amount as amount',
+                'investor_with_plants.total_amount as total_amount',
+                'investor_with_plants.created_at as start_date',
+                'investors.fullname as investor_name',
+                'plan_models.name as plan_name',
+                'plan_models.title as plan_title',
+                'investor_with_plants.profit as plan_discount'
+            )->where('investor_id', $data['investor_id']);
+        // Search
+        $search = $data['search']['value'] ?? '';
+        if (isset($search)) {
+            $query = $query->where(function ($q) use ($search) {
+                $q->where('name_coin', 'like', '%' . $search . '%')
+                    ->orWhere('plan_name', 'like', '%' . $search . '%')
+                    ->orWhere('plan_title', 'like', '%' . $search . '%');
+            });
+        }
+        $query = $query->orderBy($orderByColumn, $orderType);
+        $recordsFiltered = $recordsTotal = $query->count();
+        $result = $query
             ->skip($skip)
             ->take($pageLength)
             ->get();
-        $pageCount = ceil($recordsTotal / $pageLength);
         return [
-            'result' => $result,
-            'page_count' => $pageCount,
+            'draw' => $data['draw'],
+            'recordsTotal' => $recordsTotal,
+            'recordsFiltered' => $recordsFiltered,
+            'data' => $result,
         ];
     }
-
-    public function history_withdraw($id)
+    public function historyWithdraw($id)
     {
         return view("admin.investors.history.withdraw", ['id' => $id]);
+    }
+
+    public function withdrawDataTable(Request $request)
+    {
+        $data = $request->all();
+
+        // Page Length
+        $pageNumber = ($data['start'] / $data['length']) + 1;
+        $pageLength = $data['length'] ?? 10;
+        $orderColumnIndex = $data['order'][0]['column'] ?? '0';
+        $orderByColumn = $data['columns'][$orderColumnIndex]['data'];
+        $orderType = $data['order'][0]['dir'] ?? 'desc';
+        $skip = ($pageNumber - 1) * $pageLength;
+
+        $query = Withdraw::query();
+        $query->join('investors', 'withdraws.investor_id', '=', 'investors.id')
+            ->select('withdraws.*', 'investors.fullname as investor_name')->where('investor_id', $data['investor_id']);
+        // Search
+        $search = $data['search']['value'] ?? '';
+        if (isset($search)) {
+            $query = $query->where(function ($q) use ($search) {
+                $q->where('coin_name', 'like', '%' . $search . '%')
+                    ->orWhere('total_amount', 'like', '%' . $search . '%');
+            });
+        }
+        $query = $query->orderBy($orderByColumn, $orderType);
+        $recordsFiltered = $recordsTotal = $query->count();
+        $result = $query
+            ->skip($skip)
+            ->take($pageLength)
+            ->get();
+        return [
+            'draw' => $data['draw'],
+            'recordsTotal' => $recordsTotal,
+            'recordsFiltered' => $recordsFiltered,
+            'data' => $result,
+        ];
     }
 }
