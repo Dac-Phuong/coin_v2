@@ -9,14 +9,7 @@
                 <div class="d-flex justify-content-between align-items-center">
                     <h5 class="card-header">{{ __('Referral List') }}</h5>
                 </div>
-                <div class="col-md-2 ml-auto mr-3" style="margin-left:auto;margin-right:25px">
-                    <div class="input-group input-group-merge">
-                        <span class="input-group-text" id="basic-addon-search31"><i class="ti ti-search"></i></span>
-                        <input type="text" wire:model.live.debounce.300ms="search" class="form-control"
-                            placeholder="{{ __('Search...') }}" aria-label="Search..."
-                            aria-describedby="basic-addon-search31" fdprocessedid="pjzbzc">
-                    </div>
-                </div>
+                
                 <div class="card-datatable table-responsive pt-0">
                     <table class="table dataTable" id="referralDatatable">
                         <thead>

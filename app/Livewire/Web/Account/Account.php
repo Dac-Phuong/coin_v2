@@ -85,7 +85,7 @@ class Account extends Component
         $calculator = new InterestCalculator();
         $this->interestCalculator = $calculator->calculator_interest($this->investor);
         // số tiền gửi đang hoạt động
-   $this->active_deposit = Investor_with_plants::where('investor_id', $this->investor->id)
+        $this->active_deposit = Investor_with_plants::where('investor_id', $this->investor->id)
             ->where(function ($query) {
                 $query->where('status', 0);
                 $query->where('type_payment', 3);

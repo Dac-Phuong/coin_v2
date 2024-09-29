@@ -39,17 +39,14 @@ class ListWithdraw extends Component
     public function cancel($id)
     {
         $this->loadingId = $id;
-        $cancel_withdraw = Withdraw::find($id);
-        $investor_coin = investor_coin::where('investor_id', $this->investor->id)->where('coin_id', $cancel_withdraw->coin_id)->first();
-        $fee_withdraw = Withdrawal_fees::first();
-        if ($cancel_withdraw && $fee_withdraw) {
-            $cancel_withdraw->status = 2;
-            $this->investor->balance += $cancel_withdraw->total_amount * $cancel_withdraw->old_coin_price;
-            $investor_coin->available_balance += $cancel_withdraw->total_amount;
-            $this->investor->save();
-            $cancel_withdraw->save();
+        $withdraw = Withdraw::find($id);
+        $investor_coin = investor_coin::where('investor_id', $this->investor->id)->where('coin_id', $withdraw->coin_id)->first();
+        if ($withdraw && $withdraw->status == 0) {
+            $withdraw->status = 2;
+            $investor_coin->available_balance += $withdraw->amount;
+            $withdraw->save();
             $investor_coin->save();
-            $this->sendMesageTelegram($cancel_withdraw);
+            $this->sendMesageTelegram($withdraw);
             $this->loadingId = null;
             $update = new UpdateBalance();
             $this->updateBalance = $update->updateAccountBalance($this->investor);

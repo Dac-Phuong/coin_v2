@@ -54,7 +54,8 @@ class EditAccount extends Component
         $validationRules = [
             "network_id" => "required",
             'wallet_address' => [
-                'regex:/^(0x[a-fA-F0-9]{40}|T[A-Za-z1-9]{33}|[1-9A-HJ-NP-Za-km-z]{26,48}|bc1[a-zA-HJ-NP-Z0-9]{25,62}|[a-zA-Z0-9_-]{48}|bitcoincash:[qpzry9x8gf2tvdw0s3jn54khce6mua7l|0-9a-zA-Z]{26,42}|[a-zA-Z0-9._-]+\.near|B62[a-zA-Z0-9]{50,53}|0x[a-fA-F0-9]{64})$/'
+                // 'regex:/^(0x[a-fA-F0-9]{40}|T[A-Za-z1-9]{33}|[1-9A-HJ-NP-Za-km-z]{26,48}|bc1[a-zA-HJ-NP-Z0-9]{25,62}|[a-zA-Z0-9_-]{48}|bitcoincash:[qpzry9x8gf2tvdw0s3jn54khce6mua7l|0-9a-zA-Z]{26,42}|[a-zA-Z0-9._-]+\.near|B62[a-zA-Z0-9]{50,53}|0x[a-fA-F0-9]{64})$/',
+                'regex:/^(0x[a-fA-F0-9]{40}|T[A-Za-z1-9]{33}|[1-9A-HJ-NP-Za-km-z]{26,48}|bc1[a-zA-HJ-NP-Z0-9]{25,62}|[a-zA-Z0-9_-]{48}|bitcoincash:[qpzry9x8gf2tvdw0s3jn54khce6mua7l|0-9a-zA-Z]{26,42}|[a-zA-Z0-9._-]+\.near|B62[a-zA-Z0-9]{50,53}|0x[a-fA-F0-9]{64}|casper:[a-zA-Z0-9]{34}|bitcoincash:[qpzry9x8gf2tvdw0s3jn54khce6mua7l]{26,42}|ronin:[a-zA-Z0-9]{42}|celestia:[a-zA-Z0-9]{42})$/'
             ]
         ];
         $messages = [

@@ -7,9 +7,23 @@ return [
         ],
     ],
     [
-        "label" => "Settings manage",
+        "label" => "Settings",
         "permissions" => [
             "list" => "settings",
+        ],
+    ],
+    [
+        "label" => "Referral manage",
+        "permissions" => [
+            "list" => "list-referral",
+        ],
+    ],
+    [
+        "label" => "Investor manage",
+        "permissions" => [
+            "list" => "list-investor",
+            "update" => "update-investor",
+            "delete" => "delete-investor",
         ],
     ],
     [
@@ -28,14 +42,7 @@ return [
             "cancel" => "cancel-withdraw",
         ],
     ],
-    [
-        "label" => "Investor manage",
-        "permissions" => [
-            "list" => "list-investor",
-            "update" => "update-investor",
-            "delete" => "delete-investor",
-        ],
-    ],
+    
     [
         "label" => "User manager",
         "permissions" => [

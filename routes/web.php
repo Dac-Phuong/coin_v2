@@ -122,17 +122,14 @@ Route::group(['prefix' => 'admin'], function () {
             Route::post('/update', [InvestorController::class, 'update'])->name('investor.update');
             Route::post('/delete', [InvestorController::class, 'destroy'])->name('investor.delete');
             Route::post('/detail', [InvestorController::class, 'show'])->name('investor.detail');
-            // Route::post('/history/deposit', [InvestorController::class, 'depositDatatable'])->name('history.deposit');
-            // Route::get('/history/withdraw/{id}', [InvestorController::class, 'history_withdraw'])->name('history.withdraw');
         });
-        // wallets
+        // deposit
         Route::get('/investor-deposit-history/{id}', [InvestorController::class, 'historyDeposit'])->name('history.deposit');
         Route::post('/history/deposit', [InvestorController::class, 'depositDatatable'])->name('history.deposit');
-
+        // withdraw
         Route::get('/investor-withdraw-history/{id}', [InvestorController::class, 'historyWithdraw'])->name('history.withdraw');
         Route::post('/history/withdraw', [InvestorController::class, 'withdrawDatatable'])->name('history.withdraw');
-
-
+        
         Route::get('list-wallets/{id}', [WalletController::class, 'index'])->name('wallets')->middleware('can:list-wallets');
         Route::post('wallet/create', [WalletController::class, 'store'])->name('wallet.create');
         Route::post('wallet/update', [WalletController::class, 'update'])->name('wallet.update');

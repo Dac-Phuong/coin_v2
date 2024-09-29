@@ -47,7 +47,8 @@
                  </div>
                  <div class="col-lg-4">
                      <div class="text_but d-flex flex-wrap justify-content-end ">
-                         <div class="but cursor-pointer" data-bs-toggle="modal" data-bs-target="#kt_modal_deposit">Deposit</div>
+                         <div class="but cursor-pointer" data-bs-toggle="modal" data-bs-target="#kt_modal_deposit">
+                             Deposit</div>
                          <a href="{{ url('/deposit') }}" wire:navigate class="but2"> Investment Packages </a>
                          <a href="{{ url('/withdraw') }}" wire:navigate class="but"> Withdraw</a>
                          <div wire:click="logout" class="but cursor-pointer"> logout</div>
@@ -116,21 +117,29 @@
                      </div>
                      <h1 class="head3"> 03.Plan Fixed</h1>
                      <div style="max-width: 1600px ; margin: auto; margin-bottom:30px">
-                         <div class="d-flex flex-wrap">
-                             </h4><p style="text-align: center;">Please select the cryptocurrency you want to deposit</p>
-                             <div class="d-flex flex-wrap check_box_wrap">
+                         <div class="w-100">
+                             <h4 class="text-center pb-4 pt-1 fs-5 fw-bold">
+                                 Please select the cryptocurrency you want to deposit
+                             </h4>
+                             <div class="row">
+                                @if (isset($coins))
                                  @foreach ($coins as $coin)
-                                     <div class="check_box check_box2 p-1" wire:click="checkbox({{ $coin->id }})">
-                                         <label class="radio_btn {{ $coin->id == $coin_id ? 'active' : '' }}">
-                                             <input type="radio" name="type" {{ $coin->id == $coin_id ? 'checked' : '' }} value="process_18" data-fiat="USD" style="display:none;">
-                                             <span class="checkmark1">
-                                                 <p class=" font-weight-bold "><img src="{{ $coin->coin_image }}"
-                                                         class="pay">
-                                                     {{ $coin->coin_name }}</p>
-                                             </span>
-                                         </label>
-                                     </div>
-                                 @endforeach
+                                     <div class="col p-0 m-1" wire:click="checkbox({{ $coin->id }})">
+                                         <div class="check_box check_box2">
+                                             <label class="radio_btn {{ $coin->id == $coin_id ? 'active' : '' }}" style="display: block">
+                                                 <input type="radio" name="type"
+                                                     {{ $coin->id == $coin_id ? 'checked' : '' }} value="process_18"
+                                                     data-fiat="USD" style="display:none;">
+                                                 <span class="checkmark1">
+                                                     <p class="font-weight-bold"><img src="{{ $coin->coin_image }}"
+                                                             class="pay">
+                                                         {{ $coin->coin_name }}</p>
+                                                 </span>
+                                             </label>
+                                         </div>
+                                         </div>
+                                     @endforeach
+                                 @endif
                              </div>
                          </div>
                          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-4">
@@ -158,7 +167,8 @@
                                                          </div>
                                                      </div>
                                                  </div>
-                                                 <div class="nina-body-hosting nina-host-pho-thong{{ $key }}">
+                                                 <div
+                                                     class="nina-body-hosting nina-host-pho-thong{{ $key }}">
                                                      <ul>
                                                          @foreach ($plan_fixed->number_profit as $item)
                                                              @php
@@ -194,9 +204,9 @@
                                      </div>
                                  @endforeach
                              @endif
-                                <livewire:web.deposit.deposit-modal />
-                                <livewire:web.account.modal-deposit />
-                         </div>                       
+                             <livewire:web.deposit.deposit-modal />
+                             <livewire:web.account.modal-deposit />
+                         </div>
                      </div>
                      {{-- <h1 class="head3"> 03.Plan Daily</h1>
                     <div style="max-width: 1600px ; margin: auto">
@@ -307,4 +317,5 @@
              }
          });
      });
+     
  </script>

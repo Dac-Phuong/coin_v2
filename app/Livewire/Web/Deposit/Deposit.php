@@ -80,7 +80,6 @@ class Deposit extends Component
             ->select('investor_coins.*', 'coin_models.*')
             ->where('investor_coins.investor_id', $this->investor->id)
             ->paginate(10);
-
         return view('livewire.web.deposit.deposit', ['investor_coins' => $investor_coins])->extends('components.layouts.app')->section('content');
     }
 }

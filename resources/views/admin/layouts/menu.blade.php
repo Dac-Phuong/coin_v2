@@ -121,7 +121,7 @@
                     </a>
                 </li>
             @endcan
-            @can('list-withdraw')
+            @can('settings')
                 <li class="menu-item {{ request()->routeIs('settings') ? 'active' : '' }}">
                     <a href="{{ url('admin/settings') }}" class="menu-link">
                         <i class="menu-icon ti ti-settings"></i>

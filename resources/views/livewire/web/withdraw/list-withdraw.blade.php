@@ -164,23 +164,23 @@
                                              @if (count($list_withdraw) > 0)
                                                  @foreach ($list_withdraw as $key => $withdraw)
                                                      <tr>
-                                                         <td scope="row" style="background: none;color: #fff">
+                                                         <td scope="row" class="text-black">
                                                              {{ ++$key }}</td>
-                                                         <td style="background: none;color: #fff">
+                                                         <td class="text-black">
                                                              {{ formatNumber($withdraw->amount, $withdraw->coin_decimal) }}
                                                              {{ $withdraw->coin_name }}
                                                          </td>
-                                                         <td style="background: none;color: #fff">
+                                                         <td class="text-black">
                                                              {{ formatNumber($withdraw->total_amount, $withdraw->coin_decimal) }}
                                                              {{ $withdraw->coin_name }}
                                                          </td>
-                                                         <td style="background: none;color: #fff">
+                                                         <td class="text-black">
                                                              {{ $withdraw->wallet_name }}
                                                          </td>
-                                                         <td style="background: none;color: #fff">
+                                                         <td class="text-black">
                                                              {{ $withdraw->wallet_address }}
                                                          </td>
-                                                         <td>{{ $withdraw->created_at }}</td>
+                                                         <td class="text-black">{{ $withdraw->created_at }}</td>
                                                          <td
                                                              class="{{ $withdraw->status == 0 ? 'text-primary' : ($withdraw->status == 1 ? 'text-success' : ($withdraw->status == 2 ? 'text-danger' : 'text-danger')) }}">
                                                              {{ $withdraw->status == 0 ? 'Pending' : ($withdraw->status == 1 ? 'Success' : ($withdraw->status == 2 ? 'Cancel' : 'Cancel')) }}

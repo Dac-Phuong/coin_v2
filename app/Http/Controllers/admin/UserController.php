@@ -118,15 +118,15 @@ class UserController extends Controller
                     'message' => 'User not found',
                 ], 200);
             }
-            if($request->password){
+            if ($request->password) {
                 $user->password = Hash::make($request->password);
             }
             $user->name = $request->name;
             $user->email = $request->email;
             $user->role = $request->role;
             $user->save();
-            $role_name = Role::where('name', $user->role)->first();
-            if ($role_name) {
+            if ($request->role) {
+                $user->roles()->detach();
                 $user->assignRole($request->role);
             }
             return response()->json([

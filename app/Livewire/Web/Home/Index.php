@@ -39,12 +39,14 @@ class Index extends Component
         } else {
             $coin = Coin_model::first();
             $this->coin_id = $coin->id;
-            $plan_fixeds = DB::table('plan_models')
-                ->join('coin_models', 'plan_models.coin_id', '=', 'coin_models.id')
-                ->where('plan_models.package_type', 1)
-                ->where('plan_models.coin_id', $this->coin_id)
-                ->select('plan_models.*', 'coin_models.coin_price as coin_price', 'coin_models.coin_name as coin_name', 'coin_models.coin_decimal as coin_decimal')
-                ->get();
+            if ($coin) {
+                $plan_fixeds = DB::table('plan_models')
+                    ->join('coin_models', 'plan_models.coin_id', '=', 'coin_models.id')
+                    ->where('plan_models.package_type', 1)
+                    ->where('plan_models.coin_id', $this->coin_id)
+                    ->select('plan_models.*', 'coin_models.coin_price as coin_price', 'coin_models.coin_name as coin_name', 'coin_models.coin_decimal as coin_decimal')
+                    ->get();
+            }
         }
         $this->network = Network::where('status', 0)->get();
         foreach ($plan_fixeds as $key => $item) {
@@ -52,6 +54,7 @@ class Index extends Component
             $item->number_profit = $number_profit;
         }
         $this->plan_fixeds = $plan_fixeds;
+
         return view('livewire.web.home.index')->extends('web.layouts.master')->section('content');
     }
 }

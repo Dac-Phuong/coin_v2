@@ -13,14 +13,14 @@
              <!--begin::Modal header-->
              <div class="modal-header" id="kt_modal_add_user_header">
                  <!--begin::Modal title-->
-                 <div class="card-header d-flex flex-wrap">
-                     <h4 class="mb-0 text-white">Enter Amount
+                 <div class="card-header withdraw-coin d-flex flex-wrap">
+                     <h4 class="mb-0 text-white">Select Coin
                      </h4>
-                     <div class="d-flex flex-wrap check_box_wrap">
+                     <div class="row">
                          @if (isset($coins))
                              @foreach ($coins as $coin)
-                                 <div class="check_box check_box2 p-1" wire:click="checkbox({{ $coin->id }})">
-                                     <label class="radio_btn">
+                                 <div class="check_box check_box2 col p-0 m-1" wire:click="checkbox({{ $coin->id }})">
+                                     <label class="radio_btn" style="display: block">
                                          <input type="radio" name="type" value="process_18" data-fiat="USD"
                                              {{ $coin->id == $coin_id ? 'checked' : '' }} style="display:none">
                                          <span class="checkmark1">
@@ -38,8 +38,8 @@
                  <div class="btn btn-icon btn-sm btn-active-icon-primary" data-bs-dismiss="modal" aria-label="Close">
                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                          style="color: #fff;border: 4px double #fff;position: absolute;
-    top: 52px;
-    right: 35px;"><svg
+    top: 23px;
+    right: 23px;"><svg
                              xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
                              <path fill="#fff"
                                  d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z" />

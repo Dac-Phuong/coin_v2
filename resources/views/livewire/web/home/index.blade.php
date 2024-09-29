@@ -30,7 +30,7 @@
                          @endforeach
                      </div>
                  </div>
-                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-4">
+                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-5 row-cols-xl-5">
                      @if (isset($plan_fixeds))
                          @foreach ($plan_fixeds as $key => $plan_fixed)
                              <div class="col relative">
@@ -45,7 +45,8 @@
                                                  <div>
                                                      <div class="nina-text-price1">Package</div>
                                                      <div class="nina-text-price2" style="font-size:22px">
-                                                         {{ formatNumber($plan_fixed->min_deposit, $plan_fixed->coin_decimal) }} {{ $plan_fixed->coin_name }}
+                                                         {{ formatNumber($plan_fixed->min_deposit, $plan_fixed->coin_decimal) }}
+                                                         {{ $plan_fixed->coin_name }}
                                                      </div>
                                                  </div>
                                              </div>
@@ -73,7 +74,7 @@
                                                          <div class="nina-info-parameter w-100"
                                                              style="text-align: left;" style="font-size:15px">
                                                              Total:
-                                                             {{ isset($total) ? formatNumber($total , $plan_fixed->coin_decimal) : 0 }}
+                                                             {{ isset($total) ? formatNumber($total, $plan_fixed->coin_decimal) : 0 }}
                                                              {{ $plan_fixed->coin_name }}
                                                          </div>
                                                      </li>
@@ -119,7 +120,8 @@
                                                      </select>
                                                  </li>
                                                  <li>
-                                                     <h3>Enter Amount - Please select the cryptocurrency you want to deposit</h3>
+                                                     <h3>Enter Amount - Please select the cryptocurrency you want to
+                                                         deposit</h3>
                                                      <input type="text" class="inpts" id="money" placeholder=""
                                                          value="" />
                                                  </li>
@@ -171,7 +173,7 @@
      <div class="campaign">
          <div class="container">
              <div class="row">
-                 <div class="col-lg-7">
+                 <div class="col-lg-5">
                      <div class="section-title head">
                          <h3>Stakingcoins Supports Established & Emerging Protocols<br>Earn interest on Tether up to
                              280%
@@ -181,37 +183,39 @@
                          <a href='{{ $investor ? url('account') : url('register') }}' target='_blank'>Join Now</a>
                      </div>
                  </div>
-                 <div class="col-lg-5">
+                 <div class="col-lg-7">
                      <div class="dt-css-grid">
-                         @foreach ($network as $item)
-                             <div class="wf-cell shown">
-                                 <div class="the7-icon-box-grid">
-                                     <div class="box-content-wrapper">
-                                         <div class="elementor-icon">
-                                             <img width="48" height="48" src="{{ $item->network_image }}"
-                                                 alt="Uploaded Image">
-                                         </div>
-                                         <div class="box-content">
-                                             <h4 class="box-heading">
-                                                 <a href="{{ $investor ? url('account') : url('register') }}"
-                                                     wire:navigate aria-label="Avalanche">
-                                                     {{ $item->network_name }}
-                                                 </a>
-                                             </h4>
-                                             <div class="alex-desc">
-                                                 <div class="box-description">{{ $item->description }}</div>
-                                                 <a href="{{ $investor ? url('account') : url('register') }}"
-                                                     wire:navigate aria-label="Avalanche"
-                                                     class="box-button elementor-button elementor-size-sm no-text"><i
-                                                         aria-hidden="true"
-                                                         class="elementor-button-icon fas fa-arrow-right"></i></a>
+                         @if (isset($network))
+                             @foreach ($network as $item)
+                                 <div class="wf-cell shown">
+                                     <div class="the7-icon-box-grid">
+                                         <div class="box-content-wrapper">
+                                             <div class="elementor-icon">
+                                                 <img width="48" height="48" src="{{ $item->network_image }}"
+                                                     alt="Uploaded Image">
                                              </div>
+                                             <div class="box-content">
+                                                 <h4 class="box-heading">
+                                                     <a href="{{ $investor ? url('account') : url('register') }}"
+                                                         wire:navigate aria-label="Avalanche">
+                                                         {{ $item->network_name }}
+                                                     </a>
+                                                 </h4>
+                                                 <div class="alex-desc">
+                                                     <div class="box-description">{{ $item->description }}</div>
+                                                     <a href="{{ $investor ? url('account') : url('register') }}"
+                                                         wire:navigate aria-label="Avalanche"
+                                                         class="box-button elementor-button elementor-size-sm no-text"><i
+                                                             aria-hidden="true"
+                                                             class="elementor-button-icon fas fa-arrow-right"></i></a>
+                                                 </div>
 
+                                             </div>
                                          </div>
                                      </div>
                                  </div>
-                             </div>
-                         @endforeach
+                             @endforeach
+                         @endif
                      </div>
                  </div>
              </div>

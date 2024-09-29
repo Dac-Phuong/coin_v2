@@ -71,62 +71,6 @@ class ModalWithdraw extends Component
          $formattedNumber = number_format($number, $decimals);
          return rtrim(rtrim($formattedNumber, '0'), '.');
      }
-	// public function submit()
-	// {
-
-	// 	$this->validate([
-	// 		"network_id" => "required",
-	// 		'amount' => ['required', 'regex:/^[0-9.,]*$/'],
-	// 	], [
-	// 		'network_id.required' => 'The network field is required.'
-	// 	]);
-
-	// 	if (!isset($this->getWallet)) {
-	// 		session()->flash('error', 'You dont have a wallet for this network yet.');
-	// 		return redirect()->back();
-	// 	}
-	// 	if (!isset($this->investor_coin)) {
-	// 		session()->flash('error', 'You have no balance of this coin.');
-	// 		return redirect()->back();
-	// 	}
-	// 	$this->amount = (float) str_replace(',', '', $this->amount);
-	// 	$total = $this->formatNumber($this->amount  + ($this->network_fee / $this->coin_price), $this->coin_decimal);
-	// 	$total_amount = (float) str_replace(',', '', $total);
-	// 	$network = Network::find($this->getWallet->network_id);
-	// 	if ($this->amount >= $this->min_withdraw) {
-	// 		if ($total_amount <= $this->investor_coin->available_balance) {
-	// 			if (count($this->wallet_address) > 0 && isset($network)) {
-	// 				$withdaw = Withdraw::create([
-	// 					'investor_id' => $this->investor->id,
-	// 					'amount' => $this->amount,
-	// 					'total_amount' => $total_amount,
-	// 					'old_coin_price' => $this->coin_price,
-	// 					'wallet_address' => $this->getWallet->wallet_address,
-	// 					'wallet_name' => $network->network_name,
-	// 					'coin_name' => $this->coin_name,
-	// 					'coin_id' => $this->coin_id,
-	// 					'status' => 0,
-	// 				]);
-	// 				$withdaw->save();
-	// 				$this->investor->balance -= $total_amount * $this->coin_price;
-	// 				$this->investor_coin->available_balance -= $total_amount;
-	// 				$this->investor->save();
-	// 				$this->investor_coin->save();
-	// 				$this->dispatch('success', 'Withdraw success.');
-	// 				$this->sendMesageTelegram($withdaw);
-	// 				$this->reset(['amount', 'network_id']);
-	// 				$update = new UpdateBalance();
-	// 				$this->updateBalance = $update->updateAccountBalance($this->investor);
-	// 			} else {
-	// 				session()->flash('error', 'You dont currently have a wallet. Please update your wallet information to proceed with the withdrawal.');
-	// 			}
-	// 		} else {
-	// 			session()->flash('error', 'Account balance is not enough to withdraw.');
-	// 		}
-	// 	} else {
-	// 		session()->flash('error', 'Minimum withdrawal amount is ' . $this->min_withdraw . ' ' . $this->coin_name);
-	// 	}
-	// }
 	public function submit()
 	{
 		// Validate input data

@@ -49,6 +49,7 @@ class WithdrawController extends Controller
         $recordsFiltered = $recordsTotal = $query->count();
         $result = $query
             ->skip($skip)
+            ->orderBy('created_at', 'desc')
             ->take($pageLength)
             ->get();
         return [
@@ -86,8 +87,8 @@ class WithdrawController extends Controller
                 $investor_coin = investor_coin::where('investor_id', $investor->id)->where('coin_id', $withdraw->coin_id)->first();
                 $investor_coin->available_balance -= $withdraw->total_amount;
                 $withdraw->status = 1;
-                $investor->save();
                 $withdraw->save();
+                $investor_coin->save();
                 $updateBalance = new UpdateBalance();
                 $updateBalance->updateAccountBalance($investor);
                 return response()->json([
@@ -102,9 +103,9 @@ class WithdrawController extends Controller
     public function cancel(Request $request)
     {
         try {
-            $cancel_withdraw = Withdraw::find($request->id);
-            $investor = Investors::find($cancel_withdraw->investor_id);
-            $investor_coin = investor_coin::where('investor_id', $investor->id)->where('coin_id', $cancel_withdraw->coin_id)->first();
+            $withdraw = Withdraw::find($request->id);
+            $investor = Investors::find($withdraw->investor_id);
+            $investor_coin = investor_coin::where('investor_id', $investor->id)->where('coin_id', $withdraw->coin_id)->first();
             if (!$investor) {
                 return response()->json([
                     'error_code' => 1,
@@ -117,12 +118,11 @@ class WithdrawController extends Controller
                     'message' => 'Investor coin not found',
                 ], 404);
             }
-            if ($cancel_withdraw->status == 0 || $cancel_withdraw->status == 1) {
-                $cancel_withdraw->status = 2;
-                $investor_coin->available_balance += $cancel_withdraw->total_amount;
+            if ($withdraw->status == 0 || $withdraw->status == 1) {
+                $withdraw->status = 2;
+                $investor_coin->available_balance += $withdraw->total_amount;
                 $investor_coin->save();
-                $investor->save();
-                $cancel_withdraw->save();
+                $withdraw->save();
                 $updateBalance = new UpdateBalance();
                 $updateBalance->updateAccountBalance($investor);
                 return response()->json([
